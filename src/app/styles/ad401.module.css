@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+/* Material Icons 및 Outlined 스타일을 @import로 추가 */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+
+
+
+
+.ad401__main_background_color {
+    background-color: #fafcfd;
+    max-width: 1920px;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.ad401__main_container {
+    background-color: #fcfcfc;
+    max-width: 1320px;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+
+
+.ad401__main_cotainer_box,
+.ad401__sub1_cotainer_box,
+.ad401__sub2_cotainer_box,
+.ad401__sub3_cotainer_box,
+.ad401__main_content_textarea,
+.ad401__sub1_content_textarea,
+.ad401__sub2_content_textarea,
+.ad401__sub3_content_textarea
+ {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+.ad401__main_title,
+.ad401__sub1_title,
+.ad401__sub2_title,
+.ad401__sub3_title,
+.ad401__main_content,
+.ad401__sub1_content,
+.ad401__sub2_content,
+.ad401__sub3_content {
+    padding: 20px 40px;
+    width: 20%;
+    text-align: center;
+}
+
+.ad401__main_name {
+    font-size: 30px;
+    font-weight: 600;
+    padding-bottom: 15px;
+}
+
+.css-37ycmm-MuiFormControl-root-MuiTextField-root {
+    margin : 30px;
+}
