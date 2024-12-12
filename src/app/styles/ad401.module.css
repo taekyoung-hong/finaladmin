@@ -10,6 +10,7 @@
     background-color: #fafcfd;
     max-width: 1920px;
     font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
 }
 
 .ad401__main_container {
@@ -28,11 +29,11 @@
 .ad401__main_content_textarea,
 .ad401__sub1_content_textarea,
 .ad401__sub2_content_textarea,
-.ad401__sub3_content_textarea
- {
+.ad401__sub3_content_textarea {
     display: flex;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
+    align-items: center;
 }
 
 .ad401__main_title,
@@ -54,6 +55,18 @@
     padding-bottom: 15px;
 }
 
-.css-37ycmm-MuiFormControl-root-MuiTextField-root {
-    margin : 30px;
+.ad401__box {
+    padding: 15px 0;
+    width: 80%;
+
 }
+
+.ad401__button_box {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 20px;
+    padding-bottom: 30px;
+
+}
+
