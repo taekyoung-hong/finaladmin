@@ -107,7 +107,7 @@ export default function DataTable() {
             >
               삭제하기
             </Button>
-            <Link href="">
+            <Link href="/">
               <Button
                 variant="outlined"
                 size="medium"

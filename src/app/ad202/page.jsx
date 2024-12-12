@@ -4,13 +4,17 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
+
 import Stack from '@mui/material/Stack';
 import styles from '../styles/ad202.module.css'
+import { useRouter } from 'next/navigation';
 
 // 검색창 컴포넌트
 function SearchBar() {
     const [searchQuery, setSearchQuery] = React.useState("");
+   
+
+ 
 
     return (
         <div className={styles.ad202__searchcontainer}>
@@ -57,11 +61,19 @@ const rows = [
 ];
 
 export default function DataTable() {
+   
+    const router = useRouter();
     const [page, setPage] = React.useState(1);
     const rowsPerPage = 5;
 
     const handlePageChange = (event, value) => {
         setPage(value);
+    };
+
+
+    const handleRowClick = (params) => {
+        const { id } = params.row;
+        router.push(`/ad202_detail`); // 상세보기 페이지로 이동
     };
 
     // 페이지에 맞게 데이터를 잘라냄
@@ -84,6 +96,8 @@ export default function DataTable() {
                         hideFooterPagination={true}  // 페이지네이션 숨기기
                         hideFooter={true}
                         sx={{ border: 0 }}
+                        onRowClick={handleRowClick}
+
                     />
                 </Paper>
             </div>

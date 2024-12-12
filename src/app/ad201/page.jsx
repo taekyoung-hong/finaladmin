@@ -6,7 +6,8 @@ import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import styles from '../styles/ad201.module.css'
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 
 // 검색창 컴포넌트
 function SearchBar() {
@@ -130,6 +131,7 @@ const rows = [
 export default function DataTable() {
     const [page, setPage] = React.useState(1);
     const rowsPerPage = 5;
+    const router = useRouter();
 
     const handlePageChange = (event, value) => {
         setPage(value);
@@ -137,6 +139,12 @@ export default function DataTable() {
 
     const startIndex = (page - 1) * rowsPerPage;
     const currentRows = rows.slice(startIndex, startIndex + rowsPerPage);
+
+    const handleRowClick = (params) => {
+        const { id } = params.row;
+        router.push(`/ad201_detail`); // 상세보기 페이지로 이동
+    };
+
 
     return (
         <div className={styles.ad201__container}>
@@ -153,6 +161,7 @@ export default function DataTable() {
                         checkboxSelection
                         hideFooterPagination={true}  // 페이지네이션 숨기기
                         hideFooter={true}
+                        onRowClick={handleRowClick} // 행 클릭 이벤트 핸들러 추가
                     />
                 </Paper>
             </div>

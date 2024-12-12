@@ -4,9 +4,9 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
 import styles from '../styles/ad301.module.css'
+import { useRouter } from 'next/navigation';
 
 // 검색창 컴포넌트
 function SearchBar() {
@@ -58,7 +58,13 @@ function SearchBar() {
   export default function DataTable() {
     const [page, setPage] = React.useState(1);
     const rowsPerPage = 5;
-  
+    const router = useRouter();
+
+    const handleRowClick = (params) => {
+      const {id} = params.row;
+      router.push(`/ad301detail`); // 추후에 백 에서 id 값을 가지고 가야함
+    }
+
     const handlePageChange = (event, value) => {
       setPage(value);
     };
@@ -83,6 +89,7 @@ function SearchBar() {
               sx={{ border: 0 }}
               hideFooterPagination={true}  // 페이지네이션 숨기기
               hideFooter={true} 
+              onRowClick={handleRowClick}
             />
           </Paper>
         </div>

@@ -111,14 +111,14 @@ function Page() {
                                         >관리자 생성
                                             {hoverMenu.adminManagementSub1 && (
                                                 <ul className="dropdown-right">
-                                                    <li className="dropdown-item-right">관리자 등록</li>
+                                                    <li className="dropdown-item-right"><Link href="/ad301create">관리자 등록</Link></li>
                                                 </ul>
                                             )}
                                         </li>
                                         <li className="dropdown-item"
                                             onMouseEnter={() => handleSubMouseEnter("adminManagementSub2")}
                                             onMouseLeave={() => handleSubMouseLeave("adminManagementSub2")}
-                                        > 관리자 목록
+                                        > <Link href="/ad301">관리자 목록</Link>
                                             {hoverMenu.adminManagementSub2 && (
                                                 <ul className="dropdown-right">
                                                     <li className="dropdown-item-right">관리자 수정 및 삭제</li>
