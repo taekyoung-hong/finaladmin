@@ -7,6 +7,8 @@ import Pagination from '@mui/material/Pagination';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import styles from '../styles/ad502.module.css'
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 // 검색창 컴포넌트
 function SearchBar() {
@@ -60,6 +62,7 @@ const rows = [
   { id: 'ssgjt', Name: 'Melisandre', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
 ];
 
+
 export default function DataTable() {
   const [page, setPage] = React.useState(1);
   const [selectedRows, setSelectedRows] = React.useState([]);
@@ -77,6 +80,13 @@ export default function DataTable() {
   const currentRows = rows.slice(startIndex, startIndex + rowsPerPage);
 
   const isDeleteButtonDisabled = selectedRows.length == 0; // 선택된 항목 없으면 삭제 버튼 비활성화
+
+  const router = useRouter();
+
+  const handleRowClick = (params) => {
+    const { id } = params.row;
+    router.push('/ad502detail'); // 상세보기 페이지로 이동
+  };
 
   return (
     <div className={styles.ad502__container}>
@@ -105,24 +115,27 @@ export default function DataTable() {
             >
               삭제하기
             </Button>
-
-            <Button
-              variant="outlined"
-              size="medium"
-              sx={{
-                backgroundColor: 'white',
-                color: '#9C27B0',
-                border: '1px solid #9C27B0',
-                borderRadius: '42px',
-                '&:hover': {
-                  backgroundColor: 'secondary.main',
-                  color: 'white',
-                  border: '1px solid #9e9e9e',
-                }
-              }}
-            >
-              추가하기
-            </Button>
+            
+            <Link href="/ad502write" passHref>
+              <Button
+                variant="outlined"
+                size="medium"
+                sx={{
+                  backgroundColor: 'white',
+                  color: '#9C27B0',
+                  border: '1px solid #9C27B0',
+                  borderRadius: '42px',
+                  '&:hover': {
+                    backgroundColor: 'secondary.main',
+                    color: 'white',
+                    border: '1px solid #9e9e9e',
+                  }
+                }}
+              >
+                추가하기
+              </Button>
+              </Link>
+          
           </div>
           <DataGrid
             rows={currentRows}
@@ -133,6 +146,7 @@ export default function DataTable() {
             hideFooter={true}
             onSelectionModelChange={handleSelectionChange}  // 선택된 항목이 바뀔 때 호출
             selectionModel={selectedRows}  // 선택된 행의 ID를 모델에 반영
+            onRowClick={handleRowClick}
           />
         </Paper>
       </div>

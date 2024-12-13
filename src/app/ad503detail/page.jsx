@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import styles from "../styles/ad501detail.module.css";
+import styles from "../styles/ad503detail.module.css";
 import TextField, { textFieldClasses } from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -30,33 +30,33 @@ function Page(props) {
 
   return (
     <>
-      <div className={styles.ad501detail__main_background_color}>
-        <div className={styles.ad501detail__main_container}>
-          <p className={styles.ad501detail__main_name}>안전한 의약생활 - 의약품 상세보기 및 추가하기</p>
-          <div className={styles.ad501detail__main_cotainer_box}>
-            <div className={styles.ad501detail__main_title}>약품명</div>
-            <div className={styles.ad501detail__box}>
+      <div className={styles.ad503detail__main_background_color}>
+        <div className={styles.ad503detail__main_container}>
+          <p className={styles.ad503detail__main_name}>안전한 의약생활 - 병용금기 상세보기 및 수정하기</p>
+          <div className={styles.ad503detail__main_cotainer_box}>
+            <div className={styles.ad503detail__main_title}>약품명</div>
+            <div className={styles.ad503detail__box}>
               <TextField fullWidth label="약품명" id="fullWidth" />
             </div>
           </div>
 
-          <div className={styles.ad501detail__main_cotainer_box}>
-            <div className={styles.ad501detail__main_title}>제조사</div>
-            <div className={styles.ad501detail__box}>
+          <div className={styles.ad503detail__main_cotainer_box}>
+            <div className={styles.ad503detail__main_title}>제조사</div>
+            <div className={styles.ad503detail__box}>
               <TextField fullWidth label="제조사명" id="fullWidth" />
             </div>
           </div>
 
-          <div className={styles.ad501detail__sub1_cotainer_box}>
-            <div className={styles.ad501detail__sub1_title}>약의 효능</div>
-            <div className={styles.ad501detail__box}>
+          <div className={styles.ad503detail__sub1_cotainer_box}>
+            <div className={styles.ad503detail__sub1_title}>약의 효능</div>
+            <div className={styles.ad503detail__box}>
               <TextField fullWidth label="내용" id="fullWidth" />
             </div>
           </div>
 
-          <div className={styles.ad501detail__sub1_content_textarea}>
-            <div className={styles.ad501detail__sub1_content}>부작용</div>
-            <div className={styles.ad501detail__box}>
+          <div className={styles.ad503detail__sub1_content_textarea}>
+            <div className={styles.ad503detail__sub1_content}>부작용</div>
+            <div className={styles.ad503detail__box}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="내용"
@@ -68,18 +68,18 @@ function Page(props) {
             </div>
           </div>
 
-          {/* 파일 1 */}
-          <div className={styles.ad501detail__sub2_cotainer_box}>
-            <div className={styles.ad501detail__sub2_title}>첨부파일1</div>
-            <div className={styles.ad501detail__box}>
-              <div className={styles.ad501detail__filebox}>
+              {/* 파일 1 */}
+              <div className={styles.ad503detail__sub2_cotainer_box}>
+            <div className={styles.ad503detail__sub2_title}>첨부파일1</div>
+            <div className={styles.ad503detail__box}>
+              <div className={styles.ad503detail__filebox}>
                 {/* 이미지 미리보기 영역 */}
-                <div className={styles.ad501detail__imgbox}>
+                <div className={styles.ad503detail__imgbox}>
                   {filePreview1 && (
-                    <img src={filePreview1} alt="파일 미리보기" className={styles.ad501detail__imagePreview} />
+                    <img src={filePreview1} alt="파일 미리보기" className={styles.ad503detail__imagePreview} />
                   )}
                 </div>
-               {/*  <div className={styles.ad501detail__description}>
+               {/*  <div className={styles.ad503detail__description}>
                  <label htmlFor="file1">파일 설명</label>
                 <TextField
                 id="outlined-multiline-flexible"
@@ -90,7 +90,7 @@ function Page(props) {
               />
               </div> */}
                 <input
-                  className={styles.ad501detail__uploadName}
+                  className={styles.ad503detail__uploadName}
                   value={fileName1}
                   placeholder=""
                   readOnly
@@ -106,7 +106,7 @@ function Page(props) {
             </div>
           </div>
 
-          <div className={styles.ad501detail__button_box}>
+          <div className={styles.ad503detail__button_box}>
             <Button
               variant="outlined"
               size="medium"

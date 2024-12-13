@@ -80,6 +80,10 @@ export default function DataTable() {
     const startIndex = (page - 1) * rowsPerPage;
     const currentRows = rows.slice(startIndex, startIndex + rowsPerPage);
 
+
+
+
+
     return (
         <div className={styles.ad202__container}>
             <h1 className={styles.ad202__title}>전문 회원 관리</h1>
