@@ -73,7 +73,7 @@ function Page() {
                                                 <ul className="dropdown-right">
                                                     <li className="dropdown-item-right"> <Link href="/ad201">회원 목록 조회</Link></li>
                                                     <li className="dropdown-item-right"><Link href="/">회원 신고 내역</Link></li>
-                                                    <li className="dropdown-item-right"><Link href="/">경고 및 정지</Link></li>
+                                                    <li className="dropdown-item-right"><Link href="/ad201report">경고 및 정지</Link></li>
                                                 </ul>
                                             )}
                                         </li>
@@ -119,12 +119,7 @@ function Page() {
                                             onMouseEnter={() => handleSubMouseEnter("adminManagementSub2")}
                                             onMouseLeave={() => handleSubMouseLeave("adminManagementSub2")}
                                         > <Link href="/ad301">관리자 목록</Link>
-                                            {hoverMenu.adminManagementSub2 && (
-                                                <ul className="dropdown-right">
-                                                    <li className="dropdown-item-right">관리자 수정 및 삭제</li>
-                                                    <li className="dropdown-item-right">관리자 권한 부여</li>
-                                                </ul>
-                                            )}
+                                          
                                         </li>
                                     </ul>
                                 )}
@@ -176,7 +171,7 @@ function Page() {
                                             {hoverMenu.pageManagementSub3 && (
                                                 <ul className="dropdown-right">
                                                     <li className="dropdown-item-right"><Link href="/ad601">약국 찾아보기</Link></li>
-                                                    <li className="dropdown-item-right"><Link href="/ad602">폐의약품 수거함 찾아보기</Link></li>
+                                                    <li className="dropdown-item-right" style={{fontSize:"12px"}}><Link href="/ad602">폐의약품 수거함 찾아보기</Link></li>
                                                     <li className="dropdown-item-right"><Link href="/ad603">보도자료 찾아보기</Link></li>
                                                 </ul>
                                             )}

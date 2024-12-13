@@ -35,7 +35,7 @@ function Page(props) {
     <>
       <div className={styles.ad501detail__main_background_color}>
         <div className={styles.ad501detail__main_container}>
-          <p className={styles.ad501detail__main_name}>안전한 의약생활 - 의약품 상세보기 및 수정하기기</p>
+          <p className={styles.ad501detail__main_name}>안전한 의약생활 - 의약품 상세보기 및 수정하기</p>
           <div className={styles.ad501detail__main_cotainer_box}>
             <div className={styles.ad501detail__main_title}>약품명</div>
             <div className={styles.ad501detail__box}>

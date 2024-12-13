@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import styles from '../styles/ad503.module.css'
+import styles from '../styles/ad503.module.css';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 
@@ -26,9 +26,13 @@ function SearchBar() {
 
       {/* 검색바 */}
       <div className={styles.ad503__searchbar}>
-        <input type="text" placeholder="검색어를 입력하세요." value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} />
-        <button type="button" >
+        <input
+          type="text"
+          placeholder="검색어를 입력하세요."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button type="button">
           <span className="material-symbols-outlined">search</span>
         </button>
       </div>
@@ -36,43 +40,41 @@ function SearchBar() {
   );
 }
 
-const columns = [
-  { field: 'id', headerName: 'DB확정나면수정', width: 207 },
-  { field: 'Name', headerName: 'DB확정나면수정', width: 207 },
-  { field: 'email', headerName: 'DB확정나면수정', width: 400 },
-  { field: 'regdate', headerName: 'DB확정나면수정', width: 207 },
-  { field: 'level', headerName: 'DB확정나면수정', sortable: false, width: 207 },
-];
-
-const rows = [
-  { id: 'hong', Name: 'Snow', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'park', Name: 'Lannister', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'kim', Name: 'Lannister', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'lee', Name: 'Stark', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'yoon', Name: 'Targaryen', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'sdkw', Name: 'Melisandre', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'asdf', Name: 'Clifford', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'sadeee', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'hhhg', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'hosdfng', Name: 'Snow', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'sdrkfs', Name: 'Lannister', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'sdewr', Name: 'Lannister', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'zcgh', Name: 'Stark', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'qhjm', Name: 'Targaryen', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-  { id: 'ssgjt', Name: 'Melisandre', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-];
-
-
-
 export default function DataTable() {
+  const [columns, setColumns] = React.useState([]);
+  const [rows, setRows] = React.useState([]);
   const [page, setPage] = React.useState(1);
   const [selectedRows, setSelectedRows] = React.useState([]);
   const rowsPerPage = 5;
   const router = useRouter();
 
+  // 데이터 초기화
+  React.useEffect(() => {
+    // 컬럼 데이터 설정
+    setColumns([
+      { field: 'id', headerName: 'ID', width: 207 },
+      { field: 'Name', headerName: '이름', width: 207 },
+      { field: 'email', headerName: '이메일', width: 400 },
+      { field: 'regdate', headerName: '등록 날짜', width: 207 },
+      { field: 'level', headerName: '레벨', sortable: false, width: 207 },
+    ]);
+
+    // 행 데이터 설정
+    setRows([
+      { id: 'hong', Name: 'Snow', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+      { id: 'park', Name: 'Lannister', email: 'park@naver.com', regdate: '2000.00.00', level: '일반' },
+      { id: 'kim', Name: 'Stark', email: 'kim@naver.com', regdate: '2000.00.00', level: '관리자' },
+      { id: 'lee', Name: 'Targaryen', email: 'lee@naver.com', regdate: '2000.00.00', level: '일반' },
+      { id: 'yoon', Name: 'Melisandre', email: 'yoon@naver.com', regdate: '2000.00.00', level: '관리자' },
+      { id: 'choi', Name: 'Clifford', email: 'choi@naver.com', regdate: '2000.00.00', level: '일반' },
+      { id: 'jung', Name: 'Frances', email: 'jung@naver.com', regdate: '2000.00.00', level: '일반' },
+      { id: 'han', Name: 'Roxie', email: 'han@naver.com', regdate: '2000.00.00', level: '관리자' },
+    ]);
+  }, []);
+
   const handleRowClick = (params) => {
     const { id } = params.row;
-    router.push(`/ad503detail`); // 상세보기 페이지로 이동
+    router.push(`/ad503detail?id=${id}`); // 상세보기 페이지로 이동
   };
 
   const handlePageChange = (event, value) => {
@@ -86,9 +88,7 @@ export default function DataTable() {
   const startIndex = (page - 1) * rowsPerPage;
   const currentRows = rows.slice(startIndex, startIndex + rowsPerPage);
 
-  const isDeleteButtonDisabled = selectedRows.length == 0; // 선택된 항목 없으면 삭제 버튼 비활성화
-  
-  
+  const isDeleteButtonDisabled = selectedRows.length === 0; // 선택된 항목 없으면 삭제 버튼 비활성화
 
   return (
     <div className={styles.ad503__container}>
@@ -117,7 +117,7 @@ export default function DataTable() {
             >
               삭제하기
             </Button>
-         
+
             <Link href="ad503write" passHref>
               <Button
                 variant="outlined"
@@ -137,7 +137,6 @@ export default function DataTable() {
                 추가하기
               </Button>
             </Link>
-       
           </div>
           <DataGrid
             rows={currentRows}
@@ -146,8 +145,8 @@ export default function DataTable() {
             checkboxSelection
             hideFooterPagination={true} // 페이지네이션 숨기기
             hideFooter={true}
-            onSelectionModelChange={handleSelectionChange}  // 선택된 항목이 바뀔 때 호출
-            selectionModel={selectedRows}  // 선택된 행의 ID를 모델에 반영
+            onSelectionModelChange={handleSelectionChange} // 선택된 항목이 바뀔 때 호출
+            selectionModel={selectedRows} // 선택된 행의 ID를 모델에 반영
             onRowClick={handleRowClick}
           />
         </Paper>
