@@ -37,11 +37,11 @@ function SearchBar() {
 }
 
 const columns = [
-    { field: 'id', headerName: '아이디', width: 207 },
-    { field: 'Name', headerName: '이름', width: 207 },
-    { field: 'email', headerName: '이메일', width: 400 },
-    { field: 'regdate', headerName: '최초 가입일', width: 207 },
-    { field: 'level', headerName: '등급', sortable: false, width: 103 },
+    { field: 'id', headerName: '아이디', width: 207, align: 'center' },
+    { field: 'Name', headerName: '이름', width: 207 ,align: 'center'},
+    { field: 'email', headerName: '이메일', width: 400 ,align: 'center'},
+    { field: 'regdate', headerName: '최초 가입일', width: 207 ,align: 'center'},
+    { field: 'level', headerName: '등급', sortable: false, width: 103 ,align: 'center'},
     {
         field: 'report',
         headerName: '상태',

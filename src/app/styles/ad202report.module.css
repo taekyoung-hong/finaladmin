@@ -5,7 +5,7 @@
 
 
 
-.ad201report__container {
+.ad202report__container {
   font-family: "Noto Sans KR", sans-serif;
   max-width: 1320px;
   width: 100%;
@@ -13,24 +13,24 @@
   font-weight: 400;
 }
 
-.ad201report__title {
+.ad202report__title {
   color: #000000;
   font-size: 30px;
   text-align: left;
   margin-top: 60px;
 }
 
-.ad201report__table {
+.ad202report__table {
   width: 100%;
   max-width: 1320px;
   margin-top: 30px;
 }
 
-.ad201report__search {
+.ad202report__search {
   margin-top: 16px;
 }
 
-.ad201report__searchcontainer {
+.ad202report__searchcontainer {
   height: 136px;
   width: 100%;
   display: flex;
@@ -41,7 +41,7 @@
   align-items: center;
 }
 
-.ad201report__searchbar {
+.ad202report__searchbar {
   width: 1030px;
   height: 40px;
   border: 1px solid #843FFE;
@@ -52,7 +52,7 @@
   padding-left: 15px;
 }
 
-.ad201report__searchbar input {
+.ad202report__searchbar input {
   border: none;
   outline: none;
   height: 100%;
@@ -60,11 +60,11 @@
   font-size: 16px;
 }
 
-.ad201report__category {
+.ad202report__category {
   width: 100%;
 }
 
-.ad201report__searchbar button {
+.ad202report__searchbar button {
   background: none;
   border: none;
   padding: 5px;
@@ -72,7 +72,7 @@
   margin-left: 10px;
 }
 
-.ad201report__searchdropdown {
+.ad202report__searchdropdown {
   width: 160px;
   height: 40px;
   border: 1px solid #843FFE;
@@ -82,7 +82,7 @@
 }
 
 
-.ad201report__imgbox {
+.ad202report__imgbox {
   width: 100%;
   height: 400px;
   border: 1px solid #999999;
@@ -93,7 +93,7 @@
   position: relative;
 }
 
-.ad201report__imagePreview {
+.ad202report__imagePreview {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
@@ -103,7 +103,7 @@
   font-weight: 600;
 }
 
-.ad201report__customDialog {
+.ad202report__customDialog {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -125,7 +125,7 @@
   /* 패딩을 포함한 크기 계산 */
 }
 
-.ad201report__dialogItem {
+.ad202report__dialogItem {
   border-top: 1px solid #DDDDDD;
   border-bottom: 1px solid #DDDDDD;
   border-collapse: collapse;
@@ -133,51 +133,51 @@
   align-items: center;
 }
 
-.ad201report__reportbuttonbox {
+.ad202report__reportbuttonbox {
   display: flex;
   justify-content: center;
   
   align-items: center;
 }
 
-.ad201report__popupbuttonbox {
+.ad202report__popupbuttonbox {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
   margin-top: 15px;
 }
 
-.ad201report__dialogItem {
+.ad202report__dialogItem {
   display: flex;
   width: 90%;
 
 }
 
-.ad201report__reporttitle {
+.ad202report__reporttitle {
   width: 200px;
   text-align: left;
   height: 35px;
   background-color: #eee;
 }
 
-.ad201report__reporter {
+.ad202report__reporter {
   display: flex;
   justify-content: space-between;
   width: 90%;
   margin-top: 15px;
 }
 
-.ad201report__dialogContent {
+.ad202report__dialogContent {
   padding: 20px 0px 0px 5px;
 }
 
-.ad201report__customDialog p {
+.ad202report__customDialog p {
   display: inline-block;
   padding: 0px 0px 0px 5px;
   line-height: 35px;
 }
 
-.ad201report__popuptitle{
+.ad202report__popuptitle{
   font-size: 20px;
   padding: 10px 0px;
   font-weight: 600;

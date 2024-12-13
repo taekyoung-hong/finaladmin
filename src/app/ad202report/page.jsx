@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import styles from '../styles/ad201report.module.css';
+import styles from '../styles/ad202report.module.css';
 import { useRouter } from 'next/navigation';
 
 // 검색창 컴포넌트
@@ -14,10 +14,10 @@ function SearchBar() {
     const [searchQuery, setSearchQuery] = React.useState("");
 
     return (
-        <div className={styles.ad201report__searchcontainer}>
+        <div className={styles.ad202report__searchcontainer}>
             {/* 검색 옵션 */}
-            <div className={styles.ad201report__searchdropdown}>
-                <select className={styles.ad201report__category} defaultValue="아이디">
+            <div className={styles.ad202report__searchdropdown}>
+                <select className={styles.ad202report__category} defaultValue="아이디">
                     <option value="아이디">아이디</option>
                     <option value="이름">이름</option>
                     <option value="이메일">이메일</option>
@@ -25,7 +25,7 @@ function SearchBar() {
             </div>
 
             {/* 검색바 */}
-            <div className={styles.ad201__searchbar}>
+            <div className={styles.ad202report__searchbar}>
                 <input type="text" placeholder="검색어를 입력하세요." value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)} />
                 <button type="button">
@@ -45,9 +45,6 @@ const columns = [
     { field: 'day', headerName: '등급', sortable: false, width: 207, align: 'center', headerAlign: 'center' },
 ];
 
-
-
-
 const rows = [
     { report: '2024-00-00', story: '신고 합니다.', id: 'mars', done: '처리완료', day: '처리완료', authorId: 'author1', postDate: '2024-01-01', postTitle: '제목1', postContent: '내용1', reporterId: 'reporter1', reportDate: '2024-01-02', reportContent: '내용2' },
     { report: '2024-00-00', story: '신고 합니다.', id: 'earth', done: '대기중', day: '대기중', authorId: 'author2', postDate: '2024-01-03', postTitle: '제목2', postContent: '내용2', reporterId: 'reporter2', reportDate: '2024-01-04', reportContent: '내용3' },
@@ -55,6 +52,8 @@ const rows = [
     { report: '2024-00-00', story: '신고 합니다.', id: 'heliopause', done: '처리완료', day: '처리완료', authorId: 'author4', postDate: '2024-01-07', postTitle: '제목4', postContent: '내용4', reporterId: 'reporter4', reportDate: '2024-01-08', reportContent: '내용5' },
     { report: '2024-00-00', story: '신고 합니다.', id: 'neptune', done: '처리완료', day: '처리완료', authorId: 'author5', postDate: '2024-01-09', postTitle: '제목5', postContent: '내용5', reporterId: 'reporter5', reportDate: '2024-01-10', reportContent: '내용6' }
 ];
+
+
 
 export default function DataTable() {
     const [page, setPage] = React.useState(1);
@@ -104,13 +103,16 @@ export default function DataTable() {
         setSelectedReportDetails(null); // 선택된 story 초기화
     };
 
+
+
+
     return (
-        <div className={styles.ad201report__container}>
-            <h1 className={styles.ad201report__title}>일반 회원 신고 내역</h1>
-            <div className={styles.ad201report__search}>
+        <div className={styles.ad202report__container}>
+            <h1 className={styles.ad202report__title}>전문 회원 신고 내역</h1>
+            <div className={styles.ad202report__search}>
                 <SearchBar />
             </div>
-            <div className={styles.ad201report__table}>
+            <div className={styles.ad202report__table}>
                 <Paper sx={{
                     width: '100%',
 
@@ -137,25 +139,25 @@ export default function DataTable() {
 
             {/* 팝업 창 (div로 구현) */}
             {openDialog && (
-                <div className={styles.ad201report__customDialog} >
-                    <div className={styles.ad201report__dialogContent}>
-                        <p className={styles.ad201report__popuptitle}>게시글</p>
-                        <div className={styles.ad201report__dialogItem}>
-                            <div className={styles.ad201report__reporttitle}><p>신고한 글쓴이의 아이디:</p></div> <div>{selectedReportDetails.authorId}</div>
+                <div className={styles.ad202report__customDialog} >
+                    <div className={styles.ad202report__dialogContent}>
+                        <p className={styles.ad202report__popuptitle}>게시글</p>
+                        <div className={styles.ad202report__dialogItem}>
+                            <div className={styles.ad202report__reporttitle}><p>신고한 글쓴이의 아이디:</p></div> <div>{selectedReportDetails.authorId}</div>
                         </div>
-                        <div className={styles.ad201report__dialogItem}>
-                            <div className={styles.ad201report__reporttitle}> <p>글이 쓰여진 날짜:</p></div> <div> {selectedReportDetails.postDate}</div>
+                        <div className={styles.ad202report__dialogItem}>
+                            <div className={styles.ad202report__reporttitle}> <p>글이 쓰여진 날짜:</p></div> <div> {selectedReportDetails.postDate}</div>
                         </div>
-                        <div className={styles.ad201report__dialogItem}>
-                            <div className={styles.ad201report__reporttitle}> <p>신고한 글의 제목:</p></div> <div> {selectedReportDetails.postTitle}</div>
+                        <div className={styles.ad202report__dialogItem}>
+                            <div className={styles.ad202report__reporttitle}> <p>신고한 글의 제목:</p></div> <div> {selectedReportDetails.postTitle}</div>
                         </div>
-                        <div className={styles.ad201report__dialogItem}>
-                            <div className={styles.ad201report__reporttitle}> <p>신고한 글:</p></div> <div>{selectedReportDetails.postContent}</div>
+                        <div className={styles.ad202report__dialogItem}>
+                            <div className={styles.ad202report__reporttitle}> <p>신고한 글:</p></div> <div>{selectedReportDetails.postContent}</div>
                         </div>
 
-                        <div className={styles.ad201report__reporter}>
-                            <p className={styles.ad201report__popuptitle}>신고 내용</p>
-                            <div className={styles.ad201report__reportbuttonbox}>
+                        <div className={styles.ad202report__reporter}>
+                            <p className={styles.ad202report__popuptitle}>신고 내용</p>
+                            <div className={styles.ad202report__reportbuttonbox}>
                                 <Button onClick={handleDialogClose}
 
                                     color="primary"
@@ -183,7 +185,7 @@ export default function DataTable() {
                                             backgroundColor: 'secondary.main',
                                             color: 'white',
                                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                                           
+
                                         }
                                     }}
                                 >
@@ -191,28 +193,28 @@ export default function DataTable() {
                                 </Button>
                             </div>
                         </div>
-                        <div className={styles.ad201report__dialogItem}>
-                            <div className={styles.ad201report__reporttitle}> <p>신고자의 아이디:</p></div> <div>{selectedReportDetails.reporterId}</div>
+                        <div className={styles.ad202report__dialogItem}>
+                            <div className={styles.ad202report__reporttitle}> <p>신고자의 아이디:</p></div> <div>{selectedReportDetails.reporterId}</div>
                         </div>
-                        <div className={styles.ad201report__dialogItem}>
-                            <div className={styles.ad201report__reporttitle}><p>신고한 날:</p></div> <div>{selectedReportDetails.reportDate}</div>
+                        <div className={styles.ad202report__dialogItem}>
+                            <div className={styles.ad202report__reporttitle}><p>신고한 날:</p></div> <div>{selectedReportDetails.reportDate}</div>
                         </div>
-                        <div className={styles.ad201report__dialogItem}>
-                            <div className={styles.ad201report__reporttitle}><p>신고한 내용:</p></div>
-                            <div>{selectedReportDetails.ad201report__reportContent}</div>
+                        <div className={styles.ad202report__dialogItem}>
+                            <div className={styles.ad202report__reporttitle}><p>신고한 내용:</p></div>
+                            <div>{selectedReportDetails.ad202report__reportContent}</div>
                         </div>
-                        <div className={styles.ad201report__popupbuttonbox}>
+                        <div className={styles.ad202report__popupbuttonbox}>
                             <Button onClick={handleDialogClose}
 
                                 color="primary"
                                 sx={{
                                     border: '1px solid #ddd',
-                                        marginLeft: '5px',
+                                    marginLeft: '5px',
                                     '&:hover': {
                                         backgroundColor: 'secondary.main',
                                         color: 'white',
                                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                                    
+
                                     }
                                 }}
                             >
@@ -223,12 +225,12 @@ export default function DataTable() {
                                 color="primary"
                                 sx={{
                                     border: '1px solid #ddd',
-                                      marginLeft: '5px',
+                                    marginLeft: '5px',
                                     '&:hover': {
                                         backgroundColor: 'secondary.main',
                                         color: 'white',
                                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                                      
+
                                     }
                                 }}
                             >

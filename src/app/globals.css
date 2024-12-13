@@ -74,7 +74,7 @@ li {
 /* 드롭다운 메뉴 */
 .dropdown {
   position: absolute;
-  top: 76px;
+  top:76px;
   left: 0;
   background-color: #ffffff;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
