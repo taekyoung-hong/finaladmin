@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 function SearchBar() {
     const [searchQuery, setSearchQuery] = React.useState("");
 
-    return (
+    return (    
         <div className={styles.ad201__searchcontainer}>
             {/* 검색 옵션 */}
             <div className={styles.ad201__searchdropdown}>
@@ -61,6 +61,22 @@ const columns = [
     }
 ];
 
+
+const reportColor = (report) => {
+
+    if (report.includes('일반')) {
+        return '';
+    }
+    switch (report) {
+        case '경고':
+            return '#F1B840' // 경고는 노란색
+        case '정지':
+            return 'red' // 정지는 빨간색
+        default:
+            return 'black'; // 기본은 검은색
+    }
+};
+
 const rows = [
     { id: 'hong', Name: 'Snow', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반', report: '일반' },
     { id: 'park', Name: 'Lannister', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반', report: '경고' },
@@ -100,20 +116,7 @@ const rows = [
 
 
 ];
-const reportColor = (report) => {
 
-    if (report.includes('일반')) {
-        return '';
-    }
-    switch (report) {
-        case '경고':
-            return '#F1B840' // 경고는 노란색
-        case '정지':
-            return 'red' // 정지는 빨간색
-        default:
-            return 'black'; // 기본은 검은색
-    }
-};
 
 
 export default function DataTable() {

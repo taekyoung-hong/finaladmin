@@ -110,7 +110,7 @@ export default function DataTable() {
 
   const handleRowClick = (params) => {
     const { id } = params.row;
-    router.push(`/details/${id}`); // 상세보기 페이지로 이동
+    router.push(`/ad202detail`); // 상세보기 페이지로 이동
   };
 
   // 페이지에 맞게 데이터를 잘라냄

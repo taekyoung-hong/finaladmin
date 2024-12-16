@@ -25,7 +25,7 @@ function SearchBar() {
             </div>
 
             {/* 검색바 */}
-            <div className={styles.ad201__searchbar}>
+            <div className={styles.ad201report__searchbar}>
                 <input type="text" placeholder="검색어를 입력하세요." value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)} />
                 <button type="button">
@@ -37,15 +37,44 @@ function SearchBar() {
 }
 
 const columns = [
-    { field: 'postNumber', headerName: '번호', width: 100, align: 'center', headerAlign: 'center' },
-    { field: 'report', headerName: '신고일', width: 207, align: 'center', headerAlign: 'center' },
-    { field: 'story', headerName: '신고 내용', width: 400, align: 'center', headerAlign: 'center' },
-    { field: 'id', headerName: '신고자', width: 207, align: 'center', headerAlign: 'center' },
-    { field: 'done', headerName: '처리 상태', width: 207, align: 'center', headerAlign: 'center' },
-    { field: 'day', headerName: '등급', sortable: false, width: 207, align: 'center', headerAlign: 'center' },
+    { field: 'postNumber', headerName: '번호', width: 100, headerAlign: 'center' },
+    { field: 'report', headerName: '신고일', width: 207, headerAlign: 'center' },
+    { field: 'story', headerName: '신고 내용', width: 400, headerAlign: 'center' },
+    { field: 'id', headerName: '신고자', width: 207, headerAlign: 'center' },
+    {
+        field: 'done'
+        , headerName: '처리 상태'
+        , width: 207
+        , headerAlign: 'center'
+        , renderCell: (params) => {
+            const done = params.row.done;
+            const color = doneColor(done);
+            const fontWeight = done === '처리완료' ? '600' : '대기중';
+            return (
+                <span style={{ color, fontWeight }}>
+                    {done}
+                </span>
+            );
+        }
+
+    },
+
+    { field: 'day', headerName: '등급', sortable: false, width: 207, headerAlign: 'center' },
 ];
 
+const doneColor = (done) => {
 
+if (done.includes('대기중')) {
+    return '';
+}
+
+switch(done) {
+case '처리완료' :
+      return '#09FF5F'
+
+}
+
+};
 
 
 const rows = [
@@ -183,7 +212,7 @@ export default function DataTable() {
                                             backgroundColor: 'secondary.main',
                                             color: 'white',
                                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                                           
+
                                         }
                                     }}
                                 >
@@ -207,12 +236,12 @@ export default function DataTable() {
                                 color="primary"
                                 sx={{
                                     border: '1px solid #ddd',
-                                        marginLeft: '5px',
+                                    marginLeft: '5px',
                                     '&:hover': {
                                         backgroundColor: 'secondary.main',
                                         color: 'white',
                                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                                    
+
                                     }
                                 }}
                             >
@@ -223,12 +252,12 @@ export default function DataTable() {
                                 color="primary"
                                 sx={{
                                     border: '1px solid #ddd',
-                                      marginLeft: '5px',
+                                    marginLeft: '5px',
                                     '&:hover': {
                                         backgroundColor: 'secondary.main',
                                         color: 'white',
                                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                                      
+
                                     }
                                 }}
                             >

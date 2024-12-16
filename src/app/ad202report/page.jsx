@@ -41,7 +41,26 @@ const columns = [
     { field: 'report', headerName: '신고일', width: 207, align: 'center', headerAlign: 'center' },
     { field: 'story', headerName: '신고 내용', width: 400, align: 'center', headerAlign: 'center' },
     { field: 'id', headerName: '신고자', width: 207, align: 'center', headerAlign: 'center' },
-    { field: 'done', headerName: '처리 상태', width: 207, align: 'center', headerAlign: 'center' },
+    {
+        field: 'done'
+        , headerName: '처리 상태'
+        , width: 207
+        , align: 'center'
+        , headerAlign: 'center'
+        , renderCell: (params) => {
+            const done = params.row.done;
+            const color = doneColor(done);
+            const fontWeight = done === '처리완료' ? '600' : '대기중';
+            return (
+                <span style={{ color, fontWeight }}>
+                    {done}
+                </span> 
+            );
+        }
+    },
+
+
+
     { field: 'day', headerName: '등급', sortable: false, width: 207, align: 'center', headerAlign: 'center' },
 ];
 
@@ -52,6 +71,20 @@ const rows = [
     { report: '2024-00-00', story: '신고 합니다.', id: 'heliopause', done: '처리완료', day: '처리완료', authorId: 'author4', postDate: '2024-01-07', postTitle: '제목4', postContent: '내용4', reporterId: 'reporter4', reportDate: '2024-01-08', reportContent: '내용5' },
     { report: '2024-00-00', story: '신고 합니다.', id: 'neptune', done: '처리완료', day: '처리완료', authorId: 'author5', postDate: '2024-01-09', postTitle: '제목5', postContent: '내용5', reporterId: 'reporter5', reportDate: '2024-01-10', reportContent: '내용6' }
 ];
+
+const doneColor = (done) => {
+
+    if (done.includes('대기중')) {
+        return '';
+    }
+
+    switch (done) {
+        case '처리완료':
+            return '#09FF5F'
+
+    }
+
+};
 
 
 
