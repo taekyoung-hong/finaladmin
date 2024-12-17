@@ -7,6 +7,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import styles from '../styles/ad201report.module.css';
+import adcommons from "../styles/adcommons.module.css";
 import { useRouter } from 'next/navigation';
 
 // 검색창 컴포넌트
@@ -14,10 +15,10 @@ function SearchBar() {
     const [searchQuery, setSearchQuery] = React.useState("");
 
     return (
-        <div className={styles.ad201report__searchcontainer}>
+        <div className={adcommons.adcommons__searchcontainer}>
             {/* 검색 옵션 */}
-            <div className={styles.ad201report__searchdropdown}>
-                <select className={styles.ad201report__category} defaultValue="아이디">
+            <div className={adcommons.adcommons__searchdropdown}>
+                <select className={adcommons.adcommons__category} defaultValue="아이디">
                     <option value="아이디">아이디</option>
                     <option value="이름">이름</option>
                     <option value="이메일">이메일</option>
@@ -25,7 +26,7 @@ function SearchBar() {
             </div>
 
             {/* 검색바 */}
-            <div className={styles.ad201report__searchbar}>
+            <div className={adcommons.adcommons__searchbar}>
                 <input type="text" placeholder="검색어를 입력하세요." value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)} />
                 <button type="button">
@@ -37,10 +38,10 @@ function SearchBar() {
 }
 
 const columns = [
-    { field: 'postNumber', headerName: '번호', width: 100, headerAlign: 'center' },
-    { field: 'report', headerName: '신고일', width: 207, headerAlign: 'center' },
-    { field: 'story', headerName: '신고 내용', width: 400, headerAlign: 'center' },
-    { field: 'id', headerName: '신고자', width: 207, headerAlign: 'center' },
+    { field: 'postNumber', headerName: '번호', width: 100 },
+    { field: 'report', headerName: '신고일', width: 207 },
+    { field: 'story', headerName: '신고 내용', width: 400 },
+    { field: 'id', headerName: '신고자', width: 207 },
     {
         field: 'done'
         , headerName: '처리 상태'
@@ -59,20 +60,20 @@ const columns = [
 
     },
 
-    { field: 'day', headerName: '등급', sortable: false, width: 207, headerAlign: 'center' },
+    { field: 'day', headerName: '등급', sortable: false, width: 195, headerAlign: 'center' },
 ];
 
 const doneColor = (done) => {
 
-if (done.includes('대기중')) {
-    return '';
-}
+    if (done.includes('대기중')) {
+        return '';
+    }
 
-switch(done) {
-case '처리완료' :
-      return '#09FF5F'
+    switch (done) {
+        case '처리완료':
+            return '#09FF5F'
 
-}
+    }
 
 };
 
@@ -84,6 +85,13 @@ const rows = [
     { report: '2024-00-00', story: '신고 합니다.', id: 'heliopause', done: '처리완료', day: '처리완료', authorId: 'author4', postDate: '2024-01-07', postTitle: '제목4', postContent: '내용4', reporterId: 'reporter4', reportDate: '2024-01-08', reportContent: '내용5' },
     { report: '2024-00-00', story: '신고 합니다.', id: 'neptune', done: '처리완료', day: '처리완료', authorId: 'author5', postDate: '2024-01-09', postTitle: '제목5', postContent: '내용5', reporterId: 'reporter5', reportDate: '2024-01-10', reportContent: '내용6' }
 ];
+
+ // 모든 컬럼에 대해 `headerAlign: 'center'`를 동적으로 추가
+ const centeredColumns = columns.map(column => ({
+    ...column,
+    headerAlign: 'center'
+  }));
+  
 
 export default function DataTable() {
     const [page, setPage] = React.useState(1);
@@ -134,24 +142,29 @@ export default function DataTable() {
     };
 
     return (
-        <div className={styles.ad201report__container}>
-            <h1 className={styles.ad201report__title}>일반 회원 신고 내역</h1>
+        <div className={adcommons.adcommons__container}>
+            <h1 className={adcommons.adcommons__title}>일반 회원 신고 내역</h1>
             <div className={styles.ad201report__search}>
                 <SearchBar />
             </div>
-            <div className={styles.ad201report__table}>
+            <div className={adcommons.adcommons__table}>
                 <Paper sx={{
                     width: '100%',
 
                 }}>
                     <DataGrid
                         rows={currentRows}
-                        columns={columns}
+                        columns={centeredColumns}
                         pageSize={rowsPerPage}
                         hideFooterPagination={true}  // 페이지네이션 숨기기
                         hideFooter={true}
                         onRowClick={(params, event) => handleRowClick(params, event)} // 행 클릭 시 위치도 함께 처리
-
+                        sx={{
+                            // 셀의 텍스트를 가운데 정렬
+                            '& .MuiDataGrid-cell': {
+                              textAlign: 'center',
+                            },
+                          }}
                     />
                 </Paper>
             </div>

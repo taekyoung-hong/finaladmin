@@ -1,4 +1,4 @@
-    'use client';
+'use client';
 
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
@@ -7,6 +7,7 @@ import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
 import styles from '../styles/ad703.module.css'
+import adcommons from "../styles/adcommons.module.css";
 import { Button } from '@mui/material';
 
 // 검색창 컴포넌트
@@ -14,17 +15,17 @@ function SearchBar() {
     const [searchQuery, setSearchQuery] = React.useState("");
   
     return (
-      <div className={styles.ad703__searchcontainer}>
+      <div className={adcommons.adcommons__searchcontainer}>
         {/* 검색 옵션 */}
-        <div className={styles.ad703__searchdropdown}>
-          <select className={styles.ad703__category} defaultValue="제목">
+        <div className={adcommons.adcommons__searchdropdown}>
+          <select className={adcommons.adcommons__category} defaultValue="제목">
             <option value="제목">제목</option>
             <option value="작성자">작성자</option>
           </select>
         </div>
   
         {/* 검색바 */}
-        <div className={styles.ad703__searchbar}>
+        <div className={adcommons.adcommons__searchbar}>
           <input type="text" placeholder="검색어를 입력하세요." value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)} />
           <button type="button" >
@@ -36,31 +37,37 @@ function SearchBar() {
   } 
   
   const columns = [
-    { field: 'id', headerName: 'idx', width: 207 },
+    { field: 'id', headerName: '작성자 아이디', width: 207 },
     { field: 'Name', headerName: '작성자 이름', width: 207 },
     { field: 'title', headerName: '제목', width: 400 },
     { field: 'regdate', headerName: '작성일', width: 207 },
-    { field: 'open', headerName: '공개여부', sortable: false, width: 207 },
+    { field: 'views', headerName: '조회수',  width: 207 },
   ];
   
   const rows = [
-    { id: 'counsel_idx', Name: 'user_idx', title: 'counsel_title', regdate: 'counsel_regdate', open: 'counsel_open' },
-    { id: 1, Name: 'Lannister', title: '제목입니다', regdate: '2000.00.00', open: 'o' },
-    { id: 2, Name: 'Lannister', title: '제목입니다', regdate: '2000.00.00', open: 'o' },
-    { id: 3, Name: 'Stark', title: '제목입니다', regdate: '2000.00.00', open: 'x' },
-    { id: 4, Name: 'Targaryen', title: '제목입니다', regdate: '2000.00.00', open: 'o' },
-    { id: 5, Name: 'Melisandre', title: '제목입니다', regdate: '2000.00.00', open: 'x' },
-    { id: 6, Name: 'Clifford', title: '제목입니다', regdate: '2000.00.00', open: 'o' },
-    { id: 7, Name: 'Frances', title: '제목입니다', regdate: '2000.00.00', open: 'o' },
-    { id: 8, Name: 'Roxie', title: '제목입니다', regdate: '2000.00.00', open: 'o' },
-    { id: 9, Name: 'Snow', title: '제목입니다', regdate: '2000.00.00', open: 'x' },
-    { id: 10,  Name: 'Lannister', title: '제목입니다', regdate: '2000.00.00', open: 'x' },
-    { id: 11, Name: 'Lannister', title: '제목입니다', regdate: '2000.00.00', open: 'x' },
-    { id: 12, Name: 'Stark', title: '제목입니다', regdate: '2000.00.00', open: 'x' },
-    { id: 13, Name: 'Targaryen', title: '제목입니다', regdate: '2000.00.00', open: 'x' },
-    { id: 14, Name: 'Melisandre', title: '제목입니다', regdate: '2000.00.00', open: 'x' },
+    { id: 'hong', Name: 'Snow', title: '제목입니다', regdate: '2000.00.00', views: '123' },
+    { id: 'park', Name: 'Lannister', title: '제목입니다', regdate: '2000.00.00', views: '13' },
+    { id: 'kim', Name: 'Lannister', title: '제목입니다', regdate: '2000.00.00', views: '12' },
+    { id: 'lee', Name: 'Stark', title: '제목입니다', regdate: '2000.00.00', views: '11' },
+    { id: 'yoon', Name: 'Targaryen', title: '제목입니다', regdate: '2000.00.00', views: '111' },
+    { id: 'sdkw', Name: 'Melisandre', title: '제목입니다', regdate: '2000.00.00', views: '113' },
+    { id: 'asdf', Name: 'Clifford', title: '제목입니다', regdate: '2000.00.00', views: '7' },
+    { id: 'sadeee', Name: 'Frances', title: '제목입니다', regdate: '2000.00.00', views: '99' },
+    { id: 'hhhg', Name: 'Roxie', title: '제목입니다', regdate: '2000.00.00', views: '2' },
+    { id: 'hosdfng', Name: 'Snow', title: '제목입니다', regdate: '2000.00.00', views: '0' },
+    { id: 'sdrkfs', Name: 'Lannister', title: '제목입니다', regdate: '2000.00.00', views: '1' },
+    { id: 'sdewr', Name: 'Lannister', title: '제목입니다', regdate: '2000.00.00', views: '3' },
+    { id: 'zcgh', Name: 'Stark', title: '제목입니다', regdate: '2000.00.00', views: '111' },
+    { id: 'qhjm', Name: 'Targaryen', title: '제목입니다', regdate: '2000.00.00', views: '22' },
+    { id: 'ssgjt', Name: 'Melisandre', title: '제목입니다', regdate: '2000.00.00', views: '2323' },
   ];
   
+   // 모든 컬럼에 대해 `headerAlign: 'center'`를 동적으로 추가
+ const centeredColumns = columns.map(column => ({
+  ...column,
+  headerAlign: 'center'
+}));
+
   export default function DataTable() {
     const [page, setPage] = React.useState(1);
     const [selectedRows, setSelectedRows] = React.useState([]);
@@ -80,15 +87,15 @@ function SearchBar() {
     const isDeleteButtonDisabled = selectedRows.length == 0; // 선택된 항목 없으면 삭제 버튼 비활성화
   
     return (
-      <div className={styles.ad703__container}>
-        <h1 className={styles.ad703__title}>전문가와의 상담 관리</h1>
+      <div className={adcommons.adcommons__container}>
+        <h1 className={adcommons.adcommons__title}>전문가와의 상담 관리</h1>
         <div className={styles.ad703__search}>
           <SearchBar />
         </div>
-        <div className={styles.ad703__table}>
+        <div className={adcommons.adcommons__table}>
         <Paper sx={{ width: '100%' }}>
-          <div className={styles.ad703__buttoncontainer}>
-            <Button
+        <div className={adcommons.adcommons__buttoncontainer}>
+        <Button
               variant="outlined"
               size="medium"
               sx={{
@@ -110,13 +117,19 @@ function SearchBar() {
           </div>
           <DataGrid
             rows={currentRows}
-            columns={columns}
+            columns={centeredColumns}
             pageSize={rowsPerPage}
             checkboxSelection
             hideFooterPagination={true} // 페이지네이션 숨기기
             hideFooter={true}
             onSelectionModelChange={handleSelectionChange}  // 선택된 항목이 바뀔 때 호출
             selectionModel={selectedRows}  // 선택된 행의 ID를 모델에 반영
+            sx={{
+              // 셀의 텍스트를 가운데 정렬
+              '& .MuiDataGrid-cell': {
+                textAlign: 'center',
+              },
+            }}
           />
         </Paper>
       </div>

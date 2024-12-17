@@ -1,24 +1,32 @@
 "use client";
 import React, { useState } from "react";
-import styles from "../styles/ad301create.module.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import adcommons from "../styles/adcommons.module.css";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 
-function Page(props) {
+function page(props) {
   // 각 파일에 대한 상태를 별도로 관리
-  const [fileName1, setFileName1] = useState("");
+  const [fileName1, setFileName1] = useState(""); 
+  const [filePreview1, setFilePreview1] = useState(null); 
+
   // 파일 선택 시 상태 업데이트 함수
-  const handleFileChange = (event, setFileName) => {
+  const handleFileChange = (event, setFileName, setFilePreview) => {
     const file = event.target.files[0]; // 첫 번째 파일 선택
     if (file) {
       setFileName(file.name); // 파일 이름을 상태에 저장
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFilePreview(reader.result); // 이미지 미리보기 업데이트
+      };
+      reader.readAsDataURL(file); // 파일을 Data URL로 읽어들여 이미지 미리보기
     }
   };
+
   const [authority, setAuthority] = React.useState('');
 
   const handleChange = (e) => {
@@ -27,37 +35,36 @@ function Page(props) {
 
   return (
     <>
-      <div className={styles.ad301create__main_background_color}>
-        <div className={styles.ad301create__main_container}>
-          <p className={styles.ad301create__main_name}>관리자 생성하기</p>
-          <div className={styles.ad301create__main_cotainer_box}>
-            <div className={styles.ad301create__main_title}>아이디</div>
-            <div className={styles.ad301create__box}>
+      <div className={adcommons.adcommons__main_background_color}>
+        <div className={adcommons.adcommons__main_container}>
+          <p className={adcommons.adcommons__main_name}>관리자 생성하기</p>
+          <div className={adcommons.adcommons__main_container_box}>
+            <div className={adcommons.adcommons__main_title}>아이디</div>
+            <div className={adcommons.adcommons__box}>
               <TextField fullWidth label="닉네임" id="fullWidth" />
             </div>
           </div>
 
-          <div className={styles.ad301create__sub1_cotainer_box}>
-            <div className={styles.ad301create__sub1_title}>이름</div>
-            <div className={styles.ad301create__box}>
+          <div className={adcommons.adcommons__sub1_container_box}>
+            <div className={adcommons.adcommons__sub1_title}>이름</div>
+            <div className={adcommons.adcommons__box}>
               <TextField fullWidth label="이름" id="fullWidth" />
             </div>
           </div>
 
-          <div className={styles.ad301create__sub1_cotainer_box}>
-            <div className={styles.ad301create__sub1_title}>비밀번호</div>
-            <div className={styles.ad301create__box}>
-              <TextField fullWidth label="password" id="fullWidth" />
+          <div className={adcommons.adcommons__sub1_container_box}>
+            <div className={adcommons.adcommons__sub1_title}>이메일</div>
+            <div className={adcommons.adcommons__box}>
+              <TextField fullWidth label="이메일" id="fullWidth" />
             </div>
           </div>
 
           {/* 페이지 권한이 부여된 항목 표시 select */}
-          <div className={styles.ad301create__sub1_cotainer_box}>
-            <div className={styles.ad301create__sub1_title}>권한</div>
-            <div className={styles.ad301create__box}>
+          <div className={adcommons.adcommons__sub1_container_box}>
+            <div className={adcommons.adcommons__sub1_title}>권한</div>
+            <div className={adcommons.adcommons__box}>
               <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id="demo-simple-select-standard-label">
-                  authority</InputLabel>
+                <InputLabel id="demo-simple-select-standard-label">authority</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
                   id="demo-simple-select-standard"
@@ -76,27 +83,23 @@ function Page(props) {
             </div>
           </div>
 
-          <div className={styles.ad301create__sub1_content_textarea}>
-            <div className={styles.ad301create__sub1_content}>이미지</div>
-            <div className={styles.ad301create__box}>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="내용"
-                multiline
-                maxRows={4}
-                rows={4}
-                fullWidth
-              />
-            </div>
-          </div>
-
-          {/* 파일 1 */}
-          <div className={styles.ad301create__sub2_cotainer_box}>
-            <div className={styles.ad301create__sub2_title}>첨부파일1</div>
-            <div className={styles.ad301create__box}>
-              <div className={styles.ad301create__filebox}>
+          {/* 이미지 */}
+          <div className={adcommons.adcommons__sub2_container_box}>
+            <div className={adcommons.adcommons__sub2_title}>이미지</div>
+            <div className={adcommons.adcommons__box}>
+              <div className={adcommons.adcommons__filebox}>
+                {/* 이미지 미리보기 영역 */}
+                <div className={adcommons.adcommons__imgbox}>
+                  {filePreview1 && (
+                    <img
+                      src={filePreview1}
+                      alt="파일 미리보기"
+                      className={adcommons.adcommons__imagePreview}
+                    />
+                  )}
+                </div>
                 <input
-                  className={styles.ad301create__uploadName}
+                  className={adcommons.adcommons__uploadName}
                   value={fileName1}
                   placeholder=""
                   readOnly
@@ -106,14 +109,13 @@ function Page(props) {
                   type="file"
                   id="file1"
                   name="file_name1"
-                  onChange={(e) => handleFileChange(e, setFileName1)} // 파일1 상태 업데이트
+                  onChange={(e) => handleFileChange(e, setFileName1, setFilePreview1)} // 첨부파일 상태 업데이트 및 미리보기
                 />
               </div>
             </div>
           </div>
 
-
-          <div className={styles.ad301create__button_box}>
+          <div className={adcommons.adcommons__button_box}>
             <Button
               variant="outlined"
               size="medium"
@@ -155,4 +157,4 @@ function Page(props) {
   );
 }
 
-export default Page;
+export default page;

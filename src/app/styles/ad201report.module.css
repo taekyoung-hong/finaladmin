@@ -5,81 +5,8 @@
 
 
 
-.ad201report__container {
-  font-family: "Noto Sans KR", sans-serif;
-  max-width: 1320px;
-  width: 100%;
-  margin: 0 auto;
-  font-weight: 400;
-}
 
-.ad201report__title {
-  color: #000000;
-  font-size: 30px;
-  text-align: left;
-  margin-top: 60px;
-}
 
-.ad201report__table {
-  width: 100%;
-  max-width: 1320px;
-  margin-top: 30px;
-}
-
-.ad201report__search {
-  margin-top: 16px;
-}
-
-.ad201report__searchcontainer {
-  height: 136px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  border: 1px solid #DDDDDD;
-  border-radius: 10px;
-  align-items: center;
-}
-
-.ad201report__searchbar {
-  width: 1030px;
-  height: 40px;
-  border: 1px solid #843FFE;
-  border-radius: 20px;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  padding-left: 15px;
-}
-
-.ad201report__searchbar input {
-  border: none;
-  outline: none;
-  height: 100%;
-  width: 95%;
-  font-size: 16px;
-}
-
-.ad201report__category {
-  width: 100%;
-}
-
-.ad201report__searchbar button {
-  background: none;
-  border: none;
-  padding: 5px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.ad201report__searchdropdown {
-  width: 160px;
-  height: 40px;
-  border: 1px solid #843FFE;
-  border-radius: 20px;
-  padding: 5px;
-  position: relative;
-}
 
 
 .ad201report__imgbox {

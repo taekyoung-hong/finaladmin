@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import styles from '../styles/ad502.module.css';
 import { useRouter } from 'next/navigation';
+import adcommons from "../styles/adcommons.module.css";
 import Link from 'next/link';
 
 // 검색창 컴포넌트
@@ -15,17 +16,17 @@ function SearchBar() {
   const [searchQuery, setSearchQuery] = React.useState("");
 
   return (
-    <div className={styles.ad502__searchcontainer}>
+    <div className={adcommons.adcommons__searchcontainer}>
       {/* 검색 옵션 */}
-      <div className={styles.ad502__searchdropdown}>
-        <select className={styles.ad502__category} defaultValue="부작용">
+      <div className={adcommons.adcommons__searchdropdown}>
+      <select className={adcommons.adcommons__category} defaultValue="부작용">
           <option value="부작용">부작용 검색하기</option>
           <option value="이름">제조사명</option>
         </select>
       </div>
 
       {/* 검색바 */}
-      <div className={styles.ad502__searchbar}>
+      <div className={adcommons.adcommons__searchbar}>
         <input
           type="text"
           placeholder="검색어를 입력하세요."
@@ -72,6 +73,13 @@ export default function DataTable() {
     ]);
   }, []);
 
+   // 모든 컬럼에 대해 `headerAlign: 'center'`를 동적으로 추가
+ const centeredColumns = columns.map(column => ({
+  ...column,
+  headerAlign: 'center'
+}));
+
+
   const handlePageChange = (event, value) => {
     setPage(value);
   };
@@ -91,15 +99,15 @@ export default function DataTable() {
   };
 
   return (
-    <div className={styles.ad502__container}>
-      <h1 className={styles.ad502__title}>안전한 의약생활 - 부작용 검색하기</h1>
+    <div className={adcommons.adcommons__container}>
+      <h1 className={adcommons.adcommons__title}>안전한 의약생활 - 부작용 검색하기</h1>
       <div className={styles.ad502__search}>
         <SearchBar />
       </div>
-      <div className={styles.ad502__table}>
+      <div className={adcommons.adcommons__table}>
         <Paper sx={{ width: '100%' }}>
-          <div className={styles.ad502__buttoncontainer}>
-            <Button
+        <div className={adcommons.adcommons__buttoncontainer}>
+        <Button
               variant="outlined"
               size="medium"
               sx={{
@@ -140,7 +148,7 @@ export default function DataTable() {
           </div>
           <DataGrid
             rows={currentRows}
-            columns={columns}
+            columns={centeredColumns}
             pageSize={rowsPerPage}
             checkboxSelection
             hideFooterPagination={true} // 페이지네이션 숨기기
@@ -148,6 +156,13 @@ export default function DataTable() {
             onSelectionModelChange={handleSelectionChange} // 선택된 항목이 바뀔 때 호출
             selectionModel={selectedRows} // 선택된 행의 ID를 모델에 반영
             onRowClick={handleRowClick}
+            sx={{
+              // 셀의 텍스트를 가운데 정렬
+              '& .MuiDataGrid-cell': {
+                textAlign: 'center',
+              },
+            }}
+
           />
         </Paper>
       </div>

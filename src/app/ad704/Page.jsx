@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
+import adcommons from "../styles/adcommons.module.css";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import styles from '../styles/ad704.module.css';
@@ -13,17 +14,17 @@ function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <div className={styles.ad704__searchcontainer}>
+    <div className={adcommons.adcommons__searchcontainer}>
       {/* 검색 옵션 */}
-      <div className={styles.ad704__searchdropdown}>
-        <select className={styles.ad704__category} defaultValue="제목">
+      <div className={adcommons.adcommons__searchdropdown}>
+        <select className={adcommons.adcommons__category} defaultValue="제목">
           <option value="제목">제목</option>
           <option value="작성자">작성자</option>
         </select>
       </div>
 
       {/* 검색바 */}
-      <div className={styles.ad704__searchbar}>
+      <div className={adcommons.adcommons__searchbar}>
         <input
           type="text"
           placeholder="검색어를 입력하세요."
@@ -43,7 +44,7 @@ const columns = [
   { field: 'Name', headerName: '작성자 이름', width: 207 },
   { field: 'title', headerName: '제목', width: 400 },
   { field: 'regdate', headerName: '작성일', width: 207 },
-  { field: 'answer', headerName: '답변여부', sortable: false, width: 207 },
+  { field: 'answer', headerName: '답변여부', width: 207 },
 ];
 
 const initialRows = [
@@ -62,6 +63,12 @@ const initialRows = [
   { id: 13, Name: 'Targaryen', title: '제목입니다', regdate: '2000.00.00', answer: 'x' },
   { id: 14, Name: 'Melisandre', title: '제목입니다', regdate: '2000.00.00', answer: 'x' },
 ];
+
+// 모든 컬럼에 대해 `headerAlign: 'center'`를 동적으로 추가
+const centeredColumns = columns.map(column => ({
+  ...column,
+  headerAlign: 'center'
+}));
 
 export default function DataTable() {
   const [rows, setRows] = useState(initialRows); // rows 데이터를 상태로 관리
@@ -93,14 +100,14 @@ export default function DataTable() {
   const currentRows = rows.slice(startIndex, startIndex + rowsPerPage);
 
   return (
-    <div className={styles.ad704__container}>
-      <h1 className={styles.ad704__title}>운영진에게 문의</h1>
-      <div className={styles.ad704__search}>
+    <div className={adcommons.adcommons__container}>
+      <h1 className={adcommons.adcommons__title}>운영진에게 문의</h1>
+      <div className={adcommons.adcommons__search}>
         <SearchBar />
       </div>
-      <div className={styles.ad704__table}>
+      <div className={adcommons.adcommons__table}>
         <Paper sx={{ width: '100%' }}>
-          <div className={styles.ad704__buttoncontainer}>
+          <div className={adcommons.adcommons__buttoncontainer}>
             <Button
               variant="outlined"
               size="medium"
@@ -140,13 +147,19 @@ export default function DataTable() {
           </div>
           <DataGrid
             rows={currentRows}
-            columns={columns}
+            columns={centeredColumns}
             pageSize={rowsPerPage}
             checkboxSelection
             hideFooterPagination={true} // 페이지네이션 숨기기
             hideFooter={true}
             onSelectionModelChange={handleSelectionChange} // 선택된 항목이 바뀔 때 호출
             selectionModel={selectedRows} // 선택된 행의 ID를 모델에 반영
+            sx={{
+              // 셀의 텍스트를 가운데 정렬
+              '& .MuiDataGrid-cell': {
+                textAlign: 'center',
+              },
+            }}
           />
         </Paper>
       </div>

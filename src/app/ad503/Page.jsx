@@ -9,23 +9,24 @@ import Stack from '@mui/material/Stack';
 import styles from '../styles/ad503.module.css';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
+import adcommons from "../styles/adcommons.module.css";
 
 // 검색창 컴포넌트
 function SearchBar() {
   const [searchQuery, setSearchQuery] = React.useState("");
 
   return (
-    <div className={styles.ad503__searchcontainer}>
+    <div className={adcommons.adcommons__searchcontainer}>
       {/* 검색 옵션 */}
-      <div className={styles.ad503__searchdropdown}>
-        <select className={styles.ad503__category} defaultValue="병용금기">
+      <div className={adcommons.adcommons__searchdropdown}>
+        <select className={adcommons.adcommons__category} defaultValue="병용금기">
           <option value="병용금기">병용금기 검색하기</option>
           <option value="이름">제조사명</option>
         </select>
       </div>
 
       {/* 검색바 */}
-      <div className={styles.ad503__searchbar}>
+      <div className={adcommons.adcommons__searchbar}>
         <input
           type="text"
           placeholder="검색어를 입력하세요."
@@ -91,14 +92,14 @@ export default function DataTable() {
   const isDeleteButtonDisabled = selectedRows.length === 0; // 선택된 항목 없으면 삭제 버튼 비활성화
 
   return (
-    <div className={styles.ad503__container}>
-      <h1 className={styles.ad503__title}>안전한 의약생활 - 병용금기 검색하기</h1>
+    <div className={adcommons.adcommons__container}>
+      <h1 className={adcommons.adcommons__title}>안전한 의약생활 - 병용금기 검색하기</h1>
       <div className={styles.ad503__search}>
         <SearchBar />
       </div>
-      <div className={styles.ad503__table}>
+      <div className={adcommons.adcommons__table}>
         <Paper sx={{ width: '100%' }}>
-          <div className={styles.ad503__buttoncontainer}>
+          <div className={adcommons.adcommons__buttoncontainer}>
             <Button
               variant="outlined"
               size="medium"

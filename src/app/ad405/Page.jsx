@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from '../styles/ad401.module.css'
-
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import adcommons from "../styles/adcommons.module.css";
 
 function Page(props) {
 
@@ -10,40 +10,40 @@ function Page(props) {
     return (
         <>
 
-            <div className={styles.ad401__main_background_color}>
-                <div className={styles.ad401__main_container}>
-                    <p className={styles.ad401__main_name}>법령 API 관리창</p>
+            <div className={adcommons.adcommons__main_background_color}>
+                <div className={adcommons.adcommons__main_container}>
+                    <p className={adcommons.adcommons__main_name}>법령 API 관리창</p>
                     
-                    <div className={styles.ad401__main_cotainer_box}>
-                        <div className={styles.ad401__main_title}>법률 API URL</div>
-                        <div className={styles.ad401__box}>
+                    <div className={adcommons.adcommons__main_container_box}>
+                        <div className={adcommons.adcommons__main_title}>법률 API URL</div>
+                        <div className={adcommons.adcommons__box}>
                             <TextField fullWidth label="법률 URL" id="fullWidth"  />
                         </div>
                     </div>
                     
-                    <div className={styles.ad401__main_cotainer_box}>
-                        <div className={styles.ad401__main_title}>대통령령 API URL</div>
-                        <div className={styles.ad401__box}>
+                    <div className={adcommons.adcommons__main_container_box}>
+                        <div className={adcommons.adcommons__main_title}>대통령령 API URL</div>
+                        <div className={adcommons.adcommons__box}>
                             <TextField fullWidth label="대통령령 URL" id="fullWidth"  />
                         </div>
                     </div>
                     
-                    <div className={styles.ad401__main_cotainer_box}>
-                        <div className={styles.ad401__main_title}>총리령 API URL</div>
-                        <div className={styles.ad401__box}>
+                    <div className={adcommons.adcommons__main_container_box}>
+                        <div className={adcommons.adcommons__main_title}>총리령 API URL</div>
+                        <div className={adcommons.adcommons__box}>
                             <TextField fullWidth label="총리령 URL" id="fullWidth"  />
                         </div>
                     </div>
                     
-                    <div className={styles.ad401__main_cotainer_box}>
-                        <div className={styles.ad401__main_title}>고시 API URL</div>
-                        <div className={styles.ad401__box}>
+                    <div className={adcommons.adcommons__main_container_box}>
+                        <div className={adcommons.adcommons__main_title}>고시 API URL</div>
+                        <div className={adcommons.adcommons__box}>
                             <TextField fullWidth label="고시 URL" id="fullWidth"  />
                         </div>
                     </div>
 
                    
-                    <div className={styles.ad401__button_box}>
+                    <div className={adcommons.adcommons__button_box}>
                         <Button
                             variant="outlined"  // 버튼의 기본 스타일을 outlined로 설정 (배경이 투명)
                             size="medium"

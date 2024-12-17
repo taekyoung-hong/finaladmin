@@ -1,71 +1,64 @@
 "use client";
 import React, { useState } from "react";
-import styles from "../styles/ad501detail.module.css";
 import adcommons from "../styles/adcommons.module.css";
-import TextField, { textFieldClasses } from "@mui/material/TextField";
+import styles from "../styles/ad201detail.module.css";
+import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-function Page(props) {
-  // 각 파일에 대한 상태를 별도로 관리
-  const [fileName1, setFileName1] = useState("");
-  const [filePreview1, setFilePreview1] = useState(null);  // 이미지 미리보기 상태 추가
-  const [fileDescription, setFileDescription] = useState(""); // 파일에 대한 텍스트 입력 상태 추가
+function Page() {
+  const [fileName1, setFileName1] = useState(""); // 파일 이름
+  const [fileContent1, setFileContent1] = useState(""); // 파일 내용
+  const [filePreview1, setFilePreview1] = useState(null); // 이미지 미리보기 URL
 
-  // 파일 선택 시 상태 업데이트 함수
-  const handleFileChange = (event, setFileName, setFilePreview) => {
-    const file = event.target.files[0]; // 첫 번째 파일 선택
+  const handleFileChange = (e, setFileName) => {
+    const file = e.target.files[0];
     if (file) {
-      setFileName(file.name); // 파일 이름을 상태에 저장
+      setFileName(file.name); // 파일 이름 업데이트
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setFilePreview(reader.result); // 이미지 미리보기 업데이트
-      };
-      reader.readAsDataURL(file); // 파일을 Data URL로 읽어들여 이미지 미리보기
-    }
-  };
 
-  // 텍스트 입력 처리 함수
-  const handleTextChange = (event) => {
-    setFileDescription(event.target.value);
+      // 파일 타입 확인 (이미지인지 아닌지)
+      if (file.type.startsWith("image/")) {
+        // 이미지 파일 처리
+        reader.onload = (event) => {
+          setFilePreview1(event.target.result); // 이미지 미리보기 URL 저장
+          setFileContent1(""); // 텍스트 미리보기 초기화
+        };
+        reader.readAsDataURL(file); // 이미지 파일을 Data URL로 읽기
+      } else {
+        // 텍스트 파일 처리
+        reader.onload = (event) => {
+          setFileContent1(event.target.result); // 텍스트 내용 저장
+          setFilePreview1(null); // 이미지 미리보기 초기화
+        };
+        reader.readAsText(file); // 텍스트 파일 읽기
+      }
+    }
   };
 
   return (
     <>
       <div className={adcommons.adcommons__main_background_color}>
         <div className={adcommons.adcommons__main_container}>
-          <p className={adcommons.adcommons__main_name}>안전한 의약생활 - 의약품 상세보기 및 수정하기</p>
-          <div className={adcommons.adcommons__main_container_box}>
-            <div className={adcommons.adcommons__main_title}>약품명</div>
-            <div className={adcommons.adcommons__box}>
-              <TextField fullWidth label="약품명" id="fullWidth" />
-            </div>
-          </div>
+          <p className={adcommons.adcommons__main_name}>회원 관리</p>
 
           <div className={adcommons.adcommons__main_container_box}>
-            <div className={adcommons.adcommons__main_title}>제조사</div>
+            <div className={adcommons.adcommons__main_title}>ID</div>
             <div className={adcommons.adcommons__box}>
-              <TextField fullWidth label="제조사명" id="fullWidth" />
+              <TextField fullWidth label="ID" id="fullWidth" />
             </div>
           </div>
 
           <div className={adcommons.adcommons__sub1_container_box}>
-            <div className={adcommons.adcommons__sub1_title}>약의 효능</div>
+            <div className={adcommons.adcommons__sub1_title}>name</div>
             <div className={adcommons.adcommons__box}>
-              <TextField fullWidth label="내용" id="fullWidth" />
+              <TextField fullWidth label="name" id="fullWidth" />
             </div>
           </div>
 
-          <div className={adcommons.adcommons__sub1_content_textarea}>
-            <div className={adcommons.adcommons__sub1_content}>부작용</div>
+          <div className={adcommons.adcommons__sub1_container_box}>
+            <div className={adcommons.adcommons__sub1_title}>이메일</div>
             <div className={adcommons.adcommons__box}>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="내용"
-                multiline
-                maxRows={4}
-                rows={4}
-                fullWidth
-              />
+              <TextField fullWidth label="이메일" id="fullWidth" />
             </div>
           </div>
 
@@ -114,25 +107,6 @@ function Page(props) {
               }}
             >
               저장
-            </Button>
-
-            <Button
-              variant="outlined"  // 버튼의 기본 스타일을 outlined로 설정 (배경이 투명)
-              size="medium"
-              sx={{
-                marginLeft: "15px",
-                backgroundColor: 'white',  // 배경을 흰색으로 설정
-                color: '#9e9e9e',  // 글자 색상 #9e9e9e
-                border: '1px solid #9e9e9e',  // 보더 색상 #9e9e9e
-                '&:hover': {
-                  backgroundColor: 'secondary.main',  // hover 시 배경 색상 (secondary 색상)
-                  color: 'white',  // hover 시 글자 색상 흰색
-                  border: '1px solid #9e9e9e',  // hover 시 보더 색상
-
-                }
-              }}
-            >
-              삭제
             </Button>
 
             <Button

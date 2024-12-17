@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "../styles/ad502write.module.css";
 import TextField, { textFieldClasses } from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useRouter } from "next/navigation";
+import adcommons from "../styles/adcommons.module.css";
 
 function Page(props) {
   // 각 파일에 대한 상태를 별도로 관리
@@ -29,37 +29,35 @@ function Page(props) {
     setFileDescription(event.target.value);
   };
 
-
-
   return (
     <>
-      <div className={styles.ad502__main_background_color}>
-        <div className={styles.ad502__main_container}>
-          <p className={styles.ad502__main_name}>안전한 의약생활 - 부작용 추가하기</p>
-          <div className={styles.ad502__main_cotainer_box}>
-            <div className={styles.ad502__main_title}>약품명</div>
-            <div className={styles.ad502__box}>
+      <div className={adcommons.adcommons__main_background_color}>
+        <div className={adcommons.adcommons__main_container}>
+          <p className={adcommons.adcommons__main_name}>안전한 의약생활 - 부작용 추가하기</p>
+          <div className={adcommons.adcommons__main_container_box}>
+            <div className={adcommons.adcommons__main_title}>약품명</div>
+            <div className={adcommons.adcommons__box}>
               <TextField fullWidth label="약품명" id="fullWidth" />
             </div>
           </div>
 
-          <div className={styles.ad502__main_cotainer_box}>
-            <div className={styles.ad502__main_title}>제조사</div>
-            <div className={styles.ad502__box}>
+          <div className={adcommons.adcommons__main_container_box}>
+            <div className={adcommons.adcommons__main_title}>제조사</div>
+            <div className={adcommons.adcommons__box}>
               <TextField fullWidth label="제조사명" id="fullWidth" />
             </div>
           </div>
 
-          <div className={styles.ad502__sub1_cotainer_box}>
-            <div className={styles.ad502__sub1_title}>약의 효능</div>
-            <div className={styles.ad502__box}>
+          <div className={adcommons.adcommons__sub1_container_box}>
+            <div className={adcommons.adcommons__sub1_title}>약의 효능</div>
+            <div className={adcommons.adcommons__box}>
               <TextField fullWidth label="내용" id="fullWidth" />
             </div>
           </div>
 
-          <div className={styles.ad502__sub1_content_textarea}>
-            <div className={styles.ad502__sub1_content}>부작용</div>
-            <div className={styles.ad502__box}>
+          <div className={adcommons.adcommons__sub1_content_textarea}>
+            <div className={adcommons.adcommons__sub1_content}>부작용</div>
+            <div className={adcommons.adcommons__box}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="내용"
@@ -67,23 +65,22 @@ function Page(props) {
                 maxRows={4}
                 rows={4}
                 fullWidth
-                
               />
             </div>
           </div>
 
           {/* 파일 1 */}
-          <div className={styles.ad502__sub2_cotainer_box}>
-            <div className={styles.ad502__sub2_title}>첨부파일1</div>
-            <div className={styles.ad502__box}>
-              <div className={styles.ad502__filebox}>
+          <div className={adcommons.adcommons__sub2_container_box}>
+            <div className={adcommons.adcommons__sub2_title}>이미지</div>
+            <div className={adcommons.adcommons__box}>
+              <div className={adcommons.adcommons__filebox}>
                 {/* 이미지 미리보기 영역 */}
-                <div className={styles.ad502__imgbox}>
+                <div className={adcommons.adcommons__imgbox}>
                   {filePreview1 && (
-                    <img src={filePreview1} alt="파일 미리보기" className={styles.ad502__imagePreview} />
+                    <img src={filePreview1} alt="파일 미리보기" className={adcommons.adcommons__imagePreview} />
                   )}
                 </div>
-               {/*  <div className={styles.ad502__description}>
+               {/*  <div className={adcommons.adcommons__description}>
                  <label htmlFor="file1">파일 설명</label>
                 <TextField
                 id="outlined-multiline-flexible"
@@ -94,7 +91,7 @@ function Page(props) {
               />
               </div> */}
                 <input
-                  className={styles.ad502__uploadName}
+                  className={adcommons.adcommons__uploadName}
                   value={fileName1}
                   placeholder=""
                   readOnly
@@ -110,7 +107,7 @@ function Page(props) {
             </div>
           </div>
 
-          <div className={styles.ad502__button_box}>
+          <div className={adcommons.adcommons__button_box}>
             <Button
               variant="outlined"
               size="medium"

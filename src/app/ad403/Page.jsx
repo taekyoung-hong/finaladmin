@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "../styles/ad403.module.css";
+import adcommons from "../styles/adcommons.module.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -17,26 +18,26 @@ function Page(props) {
 
   return (
     <>
-      <div className={styles.ad403__main_background_color}>
-        <div className={styles.ad403__main_container}>
-          <p className={styles.ad403__main_name}>의약품의 허가과정</p>
-          <div className={styles.ad403__main_cotainer_box}>
-            <div className={styles.ad403__main_title}>메인 타이틀</div>
-            <div className={styles.ad403__box}>
+      <div className={adcommons.adcommons__main_background_color}>
+        <div className={adcommons.adcommons__main_container}>
+          <p className={adcommons.adcommons__main_name}>의약품의 허가과정</p>
+          <div className={adcommons.adcommons__main_container_box}>
+            <div className={adcommons.adcommons__main_title}>메인 타이틀</div>
+            <div className={adcommons.adcommons__box}>
               <TextField fullWidth label="메인 타이틀" id="fullWidth" />
             </div>
           </div>
 
-          <div className={styles.ad403__sub1_cotainer_box}>
-            <div className={styles.ad403__sub1_title}>서브1 타이틀</div>
-            <div className={styles.ad403__box}>
+          <div className={adcommons.adcommons__sub1_container_box}>
+            <div className={adcommons.adcommons__sub1_title}>서브1 타이틀</div>
+            <div className={adcommons.adcommons__box}>
               <TextField fullWidth label="서브1 타이틀" id="fullWidth" />
             </div>
           </div>
 
-          <div className={styles.ad403__sub1_content_textarea}>
-            <div className={styles.ad403__sub1_content}>내용</div>
-            <div className={styles.ad403__box}>
+          <div className={adcommons.adcommons__sub1_content_textarea}>
+            <div className={adcommons.adcommons__sub1_content}>내용</div>
+            <div className={adcommons.adcommons__box}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="내용"
@@ -49,12 +50,12 @@ function Page(props) {
           </div>
 
           {/* 파일 1 */}
-          <div className={styles.ad403__sub2_cotainer_box}>
-            <div className={styles.ad403__sub2_title}>첨부파일1</div>
-            <div className={styles.ad403__box}>
-              <div className={styles.ad403__filebox}>
+          <div className={adcommons.adcommons__sub2_container_box}>
+            <div className={adcommons.adcommons__sub2_title}>첨부파일1</div>
+            <div className={adcommons.adcommons__box}>
+              <div className={adcommons.adcommons__filebox}>
                 <input
-                  className={styles.ad403__uploadName}
+                  className={adcommons.adcommons__uploadName}
                   value={fileName1}
                   placeholder=""
                   readOnly
@@ -71,7 +72,7 @@ function Page(props) {
           </div>
 
         
-          <div className={styles.ad403__button_box}>
+          <div className={adcommons.adcommons__button_box}>
             <Button
               variant="outlined"
               size="medium"

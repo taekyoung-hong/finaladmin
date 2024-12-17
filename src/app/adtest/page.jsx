@@ -4,12 +4,10 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
 import styles from '../styles/ad201.module.css'
 import adcommons from '../styles/adcommons.module.css'
-import { useRouter } from 'next/navigation';
-
-
 
 // 검색창 컴포넌트
 function SearchBar() {
@@ -37,7 +35,6 @@ function SearchBar() {
       </div>
     );
   }
-
   
   const columns = [
     { field: 'id', headerName: '아이디', width: 207 },
@@ -94,14 +91,53 @@ function SearchBar() {
     { id: 'rtttq', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
     { id: 'tttqd', Name: 'Clifford', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
     { id: 'ssssf', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
-
+    { id: 'mmnmn', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'nnjk', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'iiokjj', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'eeeeqqqw', Name: 'Melisandre', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'qweqwe', Name: 'Clifford', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'qweqqe', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'qqrty', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'yyujfg', Name: 'Snow', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'xzcv', Name: 'Lannister', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'zxcvx', Name: 'Lannister', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'zxcvvv', Name: 'Stark', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'zxcxzv', Name: 'Targaryen', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'zxmnm', Name: 'Melisandre', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'pioupo', Name: 'Clifford', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'puiop', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'piuopui', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'ghjv', Name: 'Melisandre', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'okmj', Name: 'Clifford', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'lokn', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'asdkm', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'qmqm', Name: 'Clifford', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'qmqmqm', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'qbbqn', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'qiqiqiqi', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'qoqoqo', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'rururu', Name: 'Lannister', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'oiuytr', Name: 'Stark', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'uhngf', Name: 'Targaryen', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'sdfp', Name: 'Melisandre', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'plmsyx', Name: 'Clifford', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'qshjl', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'wfhjo', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'diphr', Name: 'Melisandre', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'sdglp', Name: 'Clifford', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'qazch', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'gdfbr', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'ziziid', Name: 'Clifford', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'uhnjjg', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'dtata', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'daya', Name: 'Frances', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
+    { id: 'uhnmka', Name: 'Roxie', email: 'hong@naver.com', regdate: '2000.00.00', level: '일반' },
   ];
   
   export default function DataTable() {
     const [page, setPage] = React.useState(1);
     const rowsPerPage = 5;
-    const router = useRouter();
-
+  
     const handlePageChange = (event, value) => {
       setPage(value);
     };
@@ -109,14 +145,6 @@ function SearchBar() {
     const startIndex = (page - 1) * rowsPerPage;
     const currentRows = rows.slice(startIndex, startIndex + rowsPerPage);
   
-    
-  const handleRowClick = (params) => {
-    const { id } = params.row;
-    router.push(`/ad201detail?${id}`); // 상세보기 페이지로 이동
-  };
-
-
-
     return (
       <div className={adcommons.adcommons__container}>
         <h1 className={adcommons.adcommons__title}>일반 회원 관리</h1>
@@ -131,7 +159,6 @@ function SearchBar() {
               pageSize={rowsPerPage}
               hideFooterPagination={true}  // 페이지네이션 숨기기
               hideFooter={true} 
-              onRowClick={handleRowClick}
               sx={{
                 // 셀의 텍스트를 가운데 정렬
                 '& .MuiDataGrid-cell': {
@@ -151,5 +178,4 @@ function SearchBar() {
       </Stack>
   </div>
 );
-
 }
