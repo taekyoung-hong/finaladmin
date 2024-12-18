@@ -45,6 +45,8 @@ body {
   max-width: 1920px;
   background-color: #FFF;
   border-bottom: 2px solid #843ffe;
+  height: 74px;
+  box-sizing: border-box;
 }
 
 .menubar {
@@ -74,7 +76,7 @@ li {
 /* 드롭다운 메뉴 */
 .dropdown {
   position: absolute;
-  top:76px;
+  top:74px;
   left: 0;
   background-color: #ffffff;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -90,13 +92,15 @@ li {
 /* 드롭다운 항목 */
 .dropdown-item {
   position: relative;
-  padding: 10px 20px;
+  padding: 0px 20px;
   font-size: 16px;
   font-weight: 500;
   color: #333;
   cursor: pointer;
   transition: background-color 0.2s ease;
   margin-bottom: 2px;
+  height: 50px;
+  line-height: 50px;
 }
 
 .dropdown-item:hover {
@@ -109,7 +113,9 @@ li {
 .menu-options {
   position: relative;
   /* 드롭다운 메뉴 위치 조정을 위한 상대 위치 */
-  padding: 22px 32px;
+  padding: 0px 32px;
+  height: 74px;
+  line-height: 74px;
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
@@ -133,7 +139,7 @@ li {
 
 /* 드롭다운 항목 */
 .dropdown-item-right {
-  padding: 10px 20px;
+  padding: 0px 20px;
   font-size: 16px;
   font-weight: 500;
   color: #333;
@@ -141,6 +147,8 @@ li {
   background-color: #fff;
   transition: background-color 0.2s ease;
   margin-bottom: 2px;
+  height: 50px;
+  line-height: 50px;
 }
 
 .dropdown-item-right:hover {

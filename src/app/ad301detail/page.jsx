@@ -10,8 +10,8 @@ import Select from '@mui/material/Select';
 
 function Page(props) {
   // 각 파일에 대한 상태를 별도로 관리
-  const [fileName1, setFileName1] = useState(""); 
-  const [filePreview1, setFilePreview1] = useState(null); 
+  const [fileName1, setFileName1] = useState("");
+  const [filePreview1, setFilePreview1] = useState(null);
 
   // 파일 선택 시 상태 업데이트 함수
   const handleFileChange = (event, setFileName, setFilePreview) => {
@@ -132,6 +132,24 @@ function Page(props) {
               저장
             </Button>
 
+            <Button
+              variant="outlined"
+              size="medium"
+              sx={{
+                marginLeft: "15px",
+                backgroundColor: "white",
+                color: "#9e9e9e",
+                border: "1px solid #9e9e9e",
+                "&:hover": {
+                  backgroundColor: "secondary.main",
+                  color: "white",
+                  border: "1px solid #9e9e9e",
+                },
+              }}
+            >
+              삭제
+            </Button>
+            
             <Button
               variant="outlined"
               size="medium"

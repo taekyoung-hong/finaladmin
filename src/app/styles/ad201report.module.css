@@ -60,10 +60,25 @@
   align-items: center;
 }
 
+.ad201report__dialogItem div:nth-child(odd) {
+  width: 200px;
+  text-align: left;
+  height: 35px;
+  background-color: #eee;
+  box-sizing: border-box;
+}
+
+.ad201report__dialogItem div:nth-child(even) {
+  width: calc(100% - 200px);
+  background-color: #fff;
+  height: 35px;
+  line-height: 35px;
+  box-sizing: border-box;
+}
+
 .ad201report__reportbuttonbox {
   display: flex;
   justify-content: center;
-  
   align-items: center;
 }
 
@@ -76,8 +91,7 @@
 
 .ad201report__dialogItem {
   display: flex;
-  width: 90%;
-
+  width: 100%;
 }
 
 .ad201report__reporttitle {
@@ -95,7 +109,8 @@
 }
 
 .ad201report__dialogContent {
-  padding: 20px 0px 0px 5px;
+  margin: 0 auto;
+  width: 540px;
 }
 
 .ad201report__customDialog p {

@@ -123,8 +123,8 @@ const centeredColumns = columns.map(column => ({
 
 
 export default function DataTable() {
- 
- 
+
+
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 5;
   const router = useRouter();
@@ -162,12 +162,16 @@ export default function DataTable() {
             pageSize={rowsPerPage}
             hideFooterPagination={true} // 페이지네이션 숨기기
             hideFooter={true}
-            onRowClick={handleRowClick} 
+            onRowClick={handleRowClick}
             sx={{
               border: 0,
               // 셀의 텍스트를 가운데 정렬
               '& .MuiDataGrid-cell': {
                 textAlign: 'center',
+              },
+              // 행에 마우스를 올렸을 때 커서를 포인터로 변경
+              '& .MuiDataGrid-row:hover': {
+                cursor: 'pointer',
               },
             }}
 

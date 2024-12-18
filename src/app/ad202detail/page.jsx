@@ -139,7 +139,7 @@ function Page(props) {
             >
               삭제
             </Button>
-
+  
             <Button
               variant="outlined"
               size="medium"

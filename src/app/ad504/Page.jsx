@@ -129,9 +129,9 @@ function Page(props) {
                     <MenuItem value="">
                       <em>없음</em>
                     </MenuItem>
-                    <MenuItem value={10}>회원</MenuItem>
-                    <MenuItem value={20}>페이지</MenuItem>
-                    <MenuItem value={30}>커뮤니티</MenuItem>
+                    <MenuItem value={10}>12시간</MenuItem>
+                    <MenuItem value={24}>24시간</MenuItem>
+                    <MenuItem value={7}>일주일 간</MenuItem>
                   </Select>
                 </FormControl>
                 <p>고객이 다시 보지 않음을 선택할 시, 몇 팝업레이어를 보여주지 않을지 설정합니다.</p>
