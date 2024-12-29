@@ -4,11 +4,12 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
 import adcommons from "../styles/adcommons.module.css";
 import Stack from '@mui/material/Stack';
 import styles from '../styles/ad601.module.css'
 import { Button } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 // 검색창 컴포넌트
 function SearchBar() {
@@ -86,6 +87,11 @@ export default function DataTable() {
 
   const isDeleteButtonDisabled = selectedRows.length == 0; // 선택된 항목 없으면 삭제 버튼 비활성화
 
+  const router = useRouter();
+  const handleRowClick = (params) => {
+    const { id } = params.row;
+    router.push(`/ad601detail?${id}`); // 상세보기 페이지로 이동
+  };
 
   return (
     <div className={adcommons.adcommons__container}>
@@ -115,23 +121,26 @@ export default function DataTable() {
               삭제하기
             </Button>
 
-            <Button
-              variant="outlined"
-              size="medium"
-              sx={{
-                backgroundColor: 'white',
-                color: '#9C27B0',
-                border: '1px solid #9C27B0',
-                borderRadius: '42px',
-                '&:hover': {
-                  backgroundColor: 'secondary.main',
-                  color: 'white',
-                  border: '1px solid #9e9e9e',
-                }
-              }}
-            >
-              추가하기
-            </Button>
+            <Link href="/ad601wirte" passHref>
+              <Button
+                variant="outlined"
+                size="medium"
+                sx={{
+                  backgroundColor: 'white',
+                  color: '#9C27B0',
+                  border: '1px solid #9C27B0',
+                  borderRadius: '42px',
+                  '&:hover': {
+                    backgroundColor: 'secondary.main',
+                    color: 'white',
+                    border: '1px solid #9e9e9e',
+                  }
+                }}
+              >
+                추가하기
+              </Button>
+            </Link>
+
           </div>
           <DataGrid
             rows={currentRows}
@@ -142,10 +151,12 @@ export default function DataTable() {
             hideFooter={true}
             onSelectionModelChange={handleSelectionChange}  // 선택된 항목이 바뀔 때 호출
             selectionModel={selectedRows}  // 선택된 행의 ID를 모델에 반영
+            onRowClick={handleRowClick}
             sx={{
               // 셀의 텍스트를 가운데 정렬
               '& .MuiDataGrid-cell': {
                 textAlign: 'center',
+                cursor: 'pointer'
               },
             }}
           />
