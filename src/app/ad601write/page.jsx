@@ -1,26 +1,29 @@
 "use client";
-import React, { useState, useEffect } from "react"; // React와 useState, useEffect 임포트
-import { Map, MapMarker } from "react-kakao-maps-sdk"; // 카카오 지도 SDK 관련 라이브러리 임포트 필요
-import adcommons from "../styles/adcommons.module.css"
+import React, { useState, useEffect } from "react";
+import { Map, MapMarker } from "react-kakao-maps-sdk"; // 카카오 지도 SDK
+import adcommons from "../styles/adcommons.module.css";
 import { Button, InputAdornment, TextField } from "@mui/material";
 import { GridSearchIcon } from "@mui/x-data-grid";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const KakaoMapComponent = () => {
-   
-    
-
     const [state, setState] = useState({
-        // 지도의 초기 위치
-        center: { lat: 37.49676871972202, lng: 127.02474726969814 },
+        center: { lat: 37.49676871972202, lng: 127.02474726969814 }, // 초기 지도 좌표
         isPanto: true, // 부드러운 이동 여부
     });
-    const [searchAddress, setSearchAddress] = useState(""); // 입력된 주소 키워드
-    const [searchAddress2, setSearchAddress2] = useState(""); // 입력된 주소 키워드2
 
-    // 카카오 지도 API 스크립트 로드
+    const [formData, setFormData] = useState({
+        phar_name: "", // 약국 이름
+        phar_address: "", // 주소
+    });
+
+    const router = useRouter();
+
     useEffect(() => {
         const script = document.createElement("script");
-        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=933487853729474a473e38bfd47ce1f5&libraries=services"; // YOUR_APP_KEY를 실제 키로 변경
+        script.src =
+            "//dapi.kakao.com/v2/maps/sdk.js?appkey=933487853729474a473e38bfd47ce1f5&libraries=services"; // YOUR_APP_KEY
         script.async = true;
         document.head.appendChild(script);
 
@@ -31,42 +34,94 @@ const KakaoMapComponent = () => {
         };
 
         return () => {
-            document.head.removeChild(script); // 컴포넌트 언마운트 시 스크립트 제거
+            document.head.removeChild(script);
         };
     }, []);
 
-    // 입력된 값 처리
-    const handleSearchAddress = (e) => {
-        setSearchAddress(e.target.value);
+    // 주소 입력 처리
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value, // name 속성 기반으로 업데이트
+        }));
     };
-    const handleSearchAddress2 = (e) => {
-        setSearchAddress2(e.target.value);
-    };
 
-    const [pharName, setPharName] = useState('');
-
-    const handlePharName = (e) => {
-        setPharName(e.target.value);
-    }
-
-    // 키워드 검색 후 지도 이동
+    // 주소 검색 후 지도 이동
     const SearchMap = () => {
-        const ps = new window.kakao.maps.services.Places(); // 카카오 장소 검색 서비스 객체 생성
+        if (!formData.phar_address) {
+            alert("주소를 입력해주세요.");
+            return;
+        }
+
+        const ps = new window.kakao.maps.services.Places(); // 장소 검색 객체 생성
 
         const placesSearchCB = (data, status) => {
             if (status === window.kakao.maps.services.Status.OK) {
-                const newSearch = data[0]; // 검색 결과의 첫 번째 데이터 사용
+                const newSearch = data[0]; // 첫 번째 검색 결과 사용
                 setState({
-                    center: { lat: parseFloat(newSearch.y), lng: parseFloat(newSearch.x) }, // 지도 중심 좌표 업데이트
+                    center: { lat: parseFloat(newSearch.y), lng: parseFloat(newSearch.x) }, // 지도 중심 변경
                     isPanto: true,
                 });
             } else {
-                alert("검색 결과가 없습니다."); // 검색 실패 시 메시지
+                alert("검색 결과가 없습니다.");
             }
         };
 
-        ps.keywordSearch(searchAddress, placesSearchCB); // 키워드 검색 실행
-        ps.keywordSearch(searchAddress2, placesSearchCB); // 키워드 검색 실행
+        ps.keywordSearch(formData.phar_address, placesSearchCB); // 키워드로 장소 검색
+    };
+
+    // 저장 처리
+    const handleSubmit = async () => {
+        if (!formData.phar_name || !formData.phar_address) {
+            alert("약국 이름과 주소를 입력해주세요.");
+            return;
+        }
+
+        try {
+            const data = {
+                phar_name: formData.phar_name,
+                phar_address: formData.phar_address,
+                phar_long: state.center.lng,
+                phar_lat: state.center.lat,
+            };
+
+            console.log("Submitting data:", data);  // 데이터 콘솔에 출력
+
+            // axios POST 요청
+            axios.post("http://localhost:8080/api/phar_info/write", data, {
+                headers: {
+                    "Content-Type": "application/json",  // 요청 헤더에 JSON 형식 명시
+                },
+            })
+                .then(response => {
+                    console.log("Response status:", response.status);  // 상태 코드 확인
+                    if (response.status === 200 || response.status === 201) {
+                        console.log("Response data:", response.data);
+                        alert("저장되었습니다.");
+                        // 상태 초기화
+                        setFormData({
+                            phar_name: "",
+                            phar_address: "",
+                        });
+                        setState({
+                            center: { lat: 37.49676871972202, lng: 127.02474726969814 },
+                            isPanto: true,
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Error response:", error);
+                    alert("저장 중 오류가 발생했습니다.");
+                });
+
+        } catch (error) {
+            console.error("Error saving pharmacy:", error);
+            alert("저장 중 오류가 발생했습니다.");
+        }
+    };
+    const handleClickCancel = () => {
+        router.push("/ad601"); // 취소 버튼 동작
     };
 
     return (
@@ -74,27 +129,33 @@ const KakaoMapComponent = () => {
             <div className={adcommons.adcommons__main_background_color}>
                 <div className={adcommons.adcommons__main_container}>
                     <p className={adcommons.adcommons__main_name}>약국 등록하기</p>
+
+                    {/* 약국 이름 입력 */}
                     <div className={adcommons.adcommons__main_container_box}>
                         <div className={adcommons.adcommons__main_title}>약국 이름</div>
                         <div className={adcommons.adcommons__box}>
-                            <TextField 
-                            fullWidth label="약국 이름" 
-                            id="fullWidth" 
-                            value={pharName}
-                            onChange={handlePharName}
+                            <TextField
+                                fullWidth
+                                label="약국 이름"
+                                id="phar_name"
+                                name="phar_name" // `name` 추가
+                                value={formData.phar_name}
+                                onChange={handleChange}
                             />
                         </div>
                     </div>
 
+                    {/* 주소 검색 */}
                     <div className={adcommons.adcommons__sub1_container_box}>
-                        <div className={adcommons.adcommons__sub1_title}>지번으로 검색</div>
+                        <div className={adcommons.adcommons__sub1_title}>주소 검색</div>
                         <div className={adcommons.adcommons__box}>
                             <TextField
                                 fullWidth
-                                label="지번으로 검색"
-                                id="fullWidth"
-                                value={searchAddress} // 입력된 값과 상태 연결
-                                onChange={handleSearchAddress} // 입력 변경 시 상태 업데이트
+                                label="주소를 입력해주세요"
+                                id="phar_address"
+                                name="phar_address" // `name` 추가
+                                value={formData.phar_address}
+                                onChange={handleChange}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
@@ -109,33 +170,10 @@ const KakaoMapComponent = () => {
                         </div>
                     </div>
 
-                    <div className={adcommons.adcommons__sub1_container_box}>
-                        <div className={adcommons.adcommons__sub1_title}>도로명으로 검색</div>
-                        <div className={adcommons.adcommons__box}>
-                            <TextField
-                                fullWidth
-                                label="도로명으로 검색"
-                                id="fullWidth"
-                                value={searchAddress2} // 입력된 값과 상태 연결
-                                onChange={handleSearchAddress2} // 입력 변경 시 상태 업데이트
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <GridSearchIcon
-                                                sx={{ cursor: "pointer" }}
-                                                onClick={SearchMap}
-                                            />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                        </div>
-                    </div>
-
+                    {/* 지도 표시 */}
                     <div className={adcommons.adcommons__sub1_content_textarea}>
                         <div className={adcommons.adcommons__sub1_content}>지도</div>
                         <div className={adcommons.adcommons__box}>
-                            {/* 지도 컨테이너 */}
                             <Map
                                 center={state.center}
                                 isPanto={state.isPanto}
@@ -149,10 +187,13 @@ const KakaoMapComponent = () => {
                             </Map>
                         </div>
                     </div>
+
+                    {/* 버튼 */}
                     <div className={adcommons.adcommons__button_box}>
                         <Button
                             variant="outlined"
                             size="medium"
+                            onClick={handleSubmit}
                             sx={{
                                 backgroundColor: "white",
                                 color: "#9e9e9e",
@@ -170,6 +211,7 @@ const KakaoMapComponent = () => {
                         <Button
                             variant="outlined"
                             size="medium"
+                            onClick={handleClickCancel}
                             sx={{
                                 marginLeft: "15px",
                                 backgroundColor: "white",
@@ -186,7 +228,7 @@ const KakaoMapComponent = () => {
                         </Button>
                     </div>
                 </div>
-            </div>       
+            </div>
         </>
     );
 };

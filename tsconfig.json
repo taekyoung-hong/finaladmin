@@ -33,7 +33,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/ad601wirte/page.tsx", "src/app/ad601detail/page.jsx"  ],
+, "src/app/ad601write/page.tsx", "src/app/ad601detail/[phar_idx]/[id].jsx"  ],
   "exclude": [
     "node_modules"
   ]
