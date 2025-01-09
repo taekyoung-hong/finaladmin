@@ -1,31 +1,19 @@
-'use client';
-
-import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import Paper from '@mui/material/Paper';
-import Pagination from '@mui/material/Pagination';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import styles from '../styles/ad502.module.css';
-import { useRouter } from 'next/navigation';
+"use client";
+import React, { useState, useEffect } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
+import { Button } from "@mui/material";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import adcommons from "../styles/adcommons.module.css";
-import Link from 'next/link';
+import styles from "../styles/ad601.module.css";
+import axios from "axios";
 
-// 검색창 컴포넌트
-function SearchBar() {
-  const [searchQuery, setSearchQuery] = React.useState("");
-
+function SearchBar({ searchQuery, setSearchQuery, handleSearch }) {
   return (
     <div className={adcommons.adcommons__searchcontainer}>
-      {/* 검색 옵션 */}
-      <div className={adcommons.adcommons__searchdropdown}>
-      <select className={adcommons.adcommons__category} defaultValue="부작용">
-          <option value="부작용">부작용 검색하기</option>
-          <option value="이름">제조사명</option>
-        </select>
-      </div>
-
-      {/* 검색바 */}
       <div className={adcommons.adcommons__searchbar}>
         <input
           type="text"
@@ -33,7 +21,7 @@ function SearchBar() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button type="button">
+        <button type="button" onClick={handleSearch}>
           <span className="material-symbols-outlined">search</span>
         </button>
       </div>
@@ -42,133 +30,195 @@ function SearchBar() {
 }
 
 export default function DataTable() {
-  const [columns, setColumns] = React.useState([]);
-  const [rows, setRows] = React.useState([]);
-  const [page, setPage] = React.useState(1);
-  const [selectedRows, setSelectedRows] = React.useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // 검색어 상태
+  const [rows, setRows] = useState([]); // 서버에서 가져온 데이터 상태
+  const [filteredRows, setFilteredRows] = useState([]); // 필터링된 데이터 상태
+  const [page, setPage] = useState(1);
+  const [rowSelectionModel, setRowSelectionModel] = useState([]); // 선택된 항목들
   const rowsPerPage = 5;
   const router = useRouter();
 
-  // 데이터 초기화
-  React.useEffect(() => {
-    // 컬럼 데이터 설정
-    setColumns([
-      { field: 'id', headerName: 'ID', width: 207 },
-      { field: 'Name', headerName: '이름', width: 207 },
-      { field: 'email', headerName: '이메일', width: 400 },
-      { field: 'regdate', headerName: '등록 날짜', width: 207 },
-      { field: 'level', headerName: '레벨', sortable: false, width: 207 },
-    ]);
+  const handleDelete = async () => {
+    // rowSelectionModel에서 drug_side_effect_idx만 추출
+    const selectedIds = Array.isArray(rowSelectionModel) ? rowSelectionModel : [];
 
-    // 행 데이터 설정
-    setRows([
-      { id: 'hong', Name: 'Snow', email: 'hong@naver.com', regdate: '2000-00-00', level: '일반' },
-      { id: 'park', Name: 'Lannister', email: 'park@naver.com', regdate: '2000-00-00', level: '일반' },
-      { id: 'kim', Name: 'Stark', email: 'kim@naver.com', regdate: '2000-00-00', level: '관리자' },
-      { id: 'lee', Name: 'Targaryen', email: 'lee@naver.com', regdate: '2000-00-00', level: '일반' },
-      { id: 'yoon', Name: 'Melisandre', email: 'yoon@naver.com', regdate: '2000-00-00', level: '관리자' },
-      { id: 'choi', Name: 'Clifford', email: 'choi@naver.com', regdate: '2000-00-00', level: '일반' },
-      { id: 'jung', Name: 'Frances', email: 'jung@naver.com', regdate: '2000-00-00', level: '일반' },
-      { id: 'han', Name: 'Roxie', email: 'han@naver.com', regdate: '2000-00-00', level: '관리자' },
-    ]);
+    console.log("selectedIds:", selectedIds);
+
+    if (selectedIds.length === 0) {
+      alert("삭제할 항목을 선택해 주세요.");
+      return;
+    }
+
+    try {
+      // selectedIds 배열의 각 요소를 순회
+      for (const drug_side_effect_idx of selectedIds) {
+        console.log("삭제할 약국 ID:", drug_side_effect_idx);
+
+        // DELETE 요청 보내기
+        await axios.post(`http://localhost:8080/api/drug_side_effect/delete/${drug_side_effect_idx}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      }
+
+      alert("삭제되었습니다.");
+      setRowSelectionModel([]);  // 선택 초기화
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting pharmacy:", error);
+      alert("삭제 중 오류가 발생했습니다.");
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/drug_side_effect/list`
+      );
+      console.log("서버에서 가져온 데이터:", response.data);
+
+      if (response.data && Array.isArray(response.data.data)) {
+        setRows(response.data.data);
+      }
+    } catch (error) {
+      console.log("데이터를 가져오지 못했습니다", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
-   // 모든 컬럼에 대해 `headerAlign: 'center'`를 동적으로 추가
- const centeredColumns = columns.map(column => ({
-  ...column,
-  headerAlign: 'center'
-}));
+  useEffect(() => {
+    setFilteredRows(rows);
+  }, [rows]);
 
+  // 검색어에 맞는 데이터 필터링
+
+
+  const handleRowClick = (params) => {
+    const { product_code } = params.row;
+    router.push(`/ad502detail?product_code=${product_code}`);
+  };
+
+  const startIndex = (page - 1) * rowsPerPage;
+  const currentRows = filteredRows.slice(startIndex, startIndex + rowsPerPage);
 
   const handlePageChange = (event, value) => {
     setPage(value);
   };
 
-  const handleSelectionChange = (newSelection) => {
-    setSelectedRows(newSelection.selectionModel); // 체크된 ID 목록 업데이트
-  };
 
-  const startIndex = (page - 1) * rowsPerPage;
-  const currentRows = rows.slice(startIndex, startIndex + rowsPerPage);
+  const handleSearch = () => {
+    console.log("검색어:", searchQuery);
+    const filtered = rows.filter((row) => {
+      const sidNameMatch = row.phar_name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const pharAddressMatch = row.phar_address
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
 
-  const isDeleteButtonDisabled = selectedRows.length === 0; // 선택된 항목 없으면 삭제 버튼 비활성화
+      if (pharNameMatch || pharAddressMatch) {
+        console.log("일치하는 항목:", row);
+      }
 
-  const handleRowClick = (params) => {
-    const { id } = params.row;
-    router.push(`/ad502detail?id=${id}`); // 상세보기 페이지로 이동
+      return pharNameMatch || pharAddressMatch;
+    });
+
+    console.log("필터링된 데이터:", filtered);
+    setFilteredRows(filtered);
   };
 
   return (
     <div className={adcommons.adcommons__container}>
-      <h1 className={adcommons.adcommons__title}>안전한 의약생활 - 부작용 검색하기</h1>
-      <div className={styles.ad502__search}>
-        <SearchBar />
+      <h1 className={adcommons.adcommons__title}>약국 찾아보기</h1>
+      <div className={styles.ad601__search}>
+        <SearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          handleSearch={handleSearch}
+        />
       </div>
-      <div className={adcommons.adcommons__table}>
-        <Paper sx={{ width: '100%' }}>
-        <div className={adcommons.adcommons__buttoncontainer}>
-        <Button
-              variant="outlined"
-              size="medium"
-              sx={{
-                backgroundColor: 'white',
-                color: '#9C27B0',
-                border: '1px solid #9C27B0',
-                borderRadius: '42px',
-                '&:hover': {
-                  backgroundColor: 'secondary.main',
-                  color: 'white',
-                  border: '1px solid #9e9e9e',
-                }
-              }}
-              disabled={isDeleteButtonDisabled} // 삭제 버튼 활성화/비활성화
-            >
-              삭제하기
-            </Button>
 
-            <Link href="/ad502write" passHref>
-              <Button
-                variant="outlined"
-                size="medium"
-                sx={{
-                  backgroundColor: 'white',
-                  color: '#9C27B0',
-                  border: '1px solid #9C27B0',
-                  borderRadius: '42px',
-                  '&:hover': {
-                    backgroundColor: 'secondary.main',
-                    color: 'white',
-                    border: '1px solid #9e9e9e',
-                  }
-                }}
-              >
-                추가하기
-              </Button>
-            </Link>
-          </div>
-          <DataGrid
-            rows={currentRows}
-            columns={centeredColumns}
-            pageSize={rowsPerPage}
-            checkboxSelection
-            hideFooterPagination={true} // 페이지네이션 숨기기
-            hideFooter={true}
-            onSelectionModelChange={handleSelectionChange} // 선택된 항목이 바뀔 때 호출
-            selectionModel={selectedRows} // 선택된 행의 ID를 모델에 반영
-            onRowClick={handleRowClick}
+      <div
+        className={adcommons.adcommons__buttoncontainer}
+        style={{ marginTop: "25px" }}
+      >
+        <Button
+          variant="outlined"
+          size="medium"
+          sx={{
+            backgroundColor: "white",
+            color: "#9C27B0",
+            border: "1px solid #9C27B0",
+            borderRadius: "42px",
+            "&:hover": {
+              backgroundColor: "secondary.main",
+              color: "white",
+              border: "1px solid #9e9e9e",
+            },
+          }}
+          onClick={handleDelete}  // handleDelete 바로 사용
+        >
+          삭제하기
+        </Button>
+
+        <Link href="/ad502write" passHref>
+          <Button
+            variant="outlined"
+            size="medium"
             sx={{
-              // 셀의 텍스트를 가운데 정렬
-              '& .MuiDataGrid-cell': {
-                textAlign: 'center',
+              backgroundColor: "white",
+              color: "#9C27B0",
+              border: "1px solid #9C27B0",
+              borderRadius: "42px",
+              "&:hover": {
+                backgroundColor: "secondary.main",
+                color: "white",
+                border: "1px solid #9e9e9e",
               },
             }}
-
-          />
-        </Paper>
+          >
+            추가하기
+          </Button>
+        </Link>
       </div>
+
+      <div className={adcommons.adcommons__table}>
+        <DataGrid
+          rows={currentRows}
+          columns={[
+            { field: "drug_side_effect_idx", headerName: "약품명", width: 150, align: "center" },
+            { field: "ingredient_name", headerName: "성분명", width: 150, align: "center" },
+            { field: "ingredient_code", headerName: "성분코드", width: 200, align: "center" },
+            { field: "product_code", headerName: "약품코드", width: 200, align: "center" },
+            { field: "product_name", headerName: "약품명", width: 200, align: "center" },
+            { field: "company_name", headerName: "제조사", width: 200, align: "center" },
+            { field: "side_detail", headerName: "상세내용", width: 200, align: "center" },
+            { field: "data_source", headerName: "출처", width: 200, align: "center" },
+          ]}
+          pageSize={rowsPerPage}
+          checkboxSelection
+          disableSelectionOnClick
+          onRowSelectionModelChange={(newSelectionModel) => {
+            // newSelectionModel에서 drug_side_effect_idx만 추출
+            console.log("새로운 선택된 ID들:", newSelectionModel);  // 확인용 로그
+            setRowSelectionModel(newSelectionModel);  // 새로운 selection model 그대로 사용
+          }}
+          rowSelectionModel={rowSelectionModel}
+          scrollbarSize={0}
+          onRowClick={handleRowClick}
+          getRowId={(row) => row.drug_side_effect_idx}  // 'drug_side_effect_idx'를 ID로 사용
+          hideFooterPagination
+          hideFooter
+        />
+      </div>
+
       <Stack spacing={2} alignItems="center" sx={{ marginTop: 2 }}>
         <Pagination
-          count={Math.ceil(rows.length / rowsPerPage)} // 총 페이지 수 계산
+          count={Math.ceil(filteredRows.length / rowsPerPage)}
           page={page}
           onChange={handlePageChange}
           color="secondary"

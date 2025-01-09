@@ -82,8 +82,7 @@ const KakaoMapComponent = () => {
             const data = {
                 phar_name: formData.phar_name,
                 phar_address: formData.phar_address,
-                phar_long: state.center.lng,
-                phar_lat: state.center.lat,
+              
             };
 
             console.log("Submitting data:", data);  // 데이터 콘솔에 출력

@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import { Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 function Page(props) {
+
+  
   // 각 파일에 대한 상태를 별도로 관리
   const [fileName1, setFileName1] = useState("");
   // 파일 선택 시 상태 업데이트 함수
@@ -126,6 +128,7 @@ function Page(props) {
                     onChange={handleTimeChange}
                     label="권한"
                   >
+                    
                     <MenuItem value="">
                       <em>없음</em>
                     </MenuItem>

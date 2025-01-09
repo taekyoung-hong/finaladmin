@@ -1,163 +1,206 @@
-"use client";
-import React, { useState } from "react";
-import styles from "../styles/ad501detail.module.css";
+"use client"
+import { useSearchParams } from 'next/navigation';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Button, TextField } from '@mui/material';
 import adcommons from "../styles/adcommons.module.css";
-import TextField, { textFieldClasses } from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import { useRouter } from 'next/navigation';
 
-function Page(props) {
-  // 각 파일에 대한 상태를 별도로 관리
-  const [fileName1, setFileName1] = useState("");
-  const [filePreview1, setFilePreview1] = useState(null);  // 이미지 미리보기 상태 추가
-  const [fileDescription, setFileDescription] = useState(""); // 파일에 대한 텍스트 입력 상태 추가
+const DetailPage = () => {
+    // URL에서 phar_idx를 가져옵니다.
+    const searchParams = useSearchParams(); // URL에서 phar_idx를 추출
+    const phar_idx = searchParams.get("phar_idx");  // router 객체를 가져옵니다.
+    console.log("현재 phar_idx:", phar_idx);  // 콘솔에 출력하여 값 확인
 
-  // 파일 선택 시 상태 업데이트 함수
-  const handleFileChange = (event, setFileName, setFilePreview) => {
-    const file = event.target.files[0]; // 첫 번째 파일 선택
-    if (file) {
-      setFileName(file.name); // 파일 이름을 상태에 저장
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFilePreview(reader.result); // 이미지 미리보기 업데이트
-      };
-      reader.readAsDataURL(file); // 파일을 Data URL로 읽어들여 이미지 미리보기
+    const [pharmacy, setPharmacy] = useState({
+        phar_name: '',
+        phar_address: '',
+        phar_lat: 0,
+        phar_long: 0,
+    });
+
+    const [state, setState] = useState({
+        center: { lat: 37.49676871972202, lng: 127.02474726969814 },
+        isPanto: true,
+    });
+
+    useEffect(() => {
+        if (phar_idx) {
+            const fetchData = async () => {
+                try {
+                    // API 호출하여 약국 정보 가져오기
+                    const response = await axios.get(`http://localhost:8080/api/phar_info/detail/${phar_idx}`);
+                    const { data } = response.data; // { data: { phar_name, phar_address, phar_lat, phar_long } }
+
+                    // 데이터 확인
+                    console.log("Fetched Data:", data);
+
+                    // 상태 업데이트
+                    setPharmacy({
+                        phar_name: data.phar_name || '',
+                        phar_address: data.phar_address || '',
+                        phar_lat: parseFloat(data.phar_lat) || 37.49676871972202,
+                        phar_long: parseFloat(data.phar_long) || 127.02474726969814,
+                    });
+
+                    setState({
+                        center: {
+                            lat: parseFloat(data.phar_lat) || 37.49676871972202,
+                            lng: parseFloat(data.phar_long) || 127.02474726969814,
+                        },
+                        isPanto: true,
+                    });
+                } catch (error) {
+                    console.error("Error fetching pharmacy details:", error);
+                    alert("약국 정보를 불러오는 데 실패했습니다.");
+                }
+            };
+
+            fetchData();
+        }
+    }, [phar_idx]); // phar_idx가 바뀔 때마다 데이터 새로 가져오기
+
+    const handleSave = async () => {
+        try {
+            const data = {
+                phar_idx: phar_idx,
+                phar_name: pharmacy.phar_name,
+                phar_address: pharmacy.phar_address,
+                phar_long: state.center.lng,
+                phar_lat: state.center.lat,
+            };
+
+            console.log("Submitting data:", data);  // 데이터 콘솔에 출력
+
+            // axios POST 요청
+            axios.post("http://localhost:8080/api/phar_info/update", data, {
+                headers: {
+                    "Content-Type": "application/json",  // 요청 헤더에 JSON 형식 명시
+                },
+            })
+                .then(response => {
+                    console.log("Response status:", response.status);  // 상태 코드 확인
+                    if (response.status === 200 || response.status === 201) {
+                        console.log("Response data:", response.data);
+                        alert("저장되었습니다.");
+                        // 상태 초기화
+
+                    }
+                })
+                .catch(error => {
+                    console.error("Error response:", error);
+                    alert("저장 중 오류가 발생했습니다.");
+                });
+
+        } catch (error) {
+            console.error("Error saving pharmacy:", error);
+            alert("저장 중 오류가 발생했습니다.");
+        }
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setPharmacy(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const router = useRouter();
+    const handleClickCancel = (e) => {
+        router.push(`/ad601`);
     }
-  };
 
-  // 텍스트 입력 처리 함수
-  const handleTextChange = (event) => {
-    setFileDescription(event.target.value);
-  };
+    return (
+        <div className={adcommons.adcommons__main_background_color}>
+            <div className={adcommons.adcommons__main_container}>
+                <p className={adcommons.adcommons__main_name}>약국 상세보기</p>
 
-  return (
-    <>
-      <div className={adcommons.adcommons__main_background_color}>
-        <div className={adcommons.adcommons__main_container}>
-          <p className={adcommons.adcommons__main_name}>안전한 의약생활 - 의약품 상세보기 및 수정하기</p>
-          <div className={adcommons.adcommons__main_container_box}>
-            <div className={adcommons.adcommons__main_title}>약품명</div>
-            <div className={adcommons.adcommons__box}>
-              <TextField fullWidth label="약품명" id="fullWidth" />
-            </div>
-          </div>
-
-          <div className={adcommons.adcommons__main_container_box}>
-            <div className={adcommons.adcommons__main_title}>제조사</div>
-            <div className={adcommons.adcommons__box}>
-              <TextField fullWidth label="제조사명" id="fullWidth" />
-            </div>
-          </div>
-
-          <div className={adcommons.adcommons__sub1_container_box}>
-            <div className={adcommons.adcommons__sub1_title}>약의 효능</div>
-            <div className={adcommons.adcommons__box}>
-              <TextField fullWidth label="내용" id="fullWidth" />
-            </div>
-          </div>
-
-          <div className={adcommons.adcommons__sub1_content_textarea}>
-            <div className={adcommons.adcommons__sub1_content}>부작용</div>
-            <div className={adcommons.adcommons__box}>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="내용"
-                multiline
-                maxRows={4}
-                rows={4}
-                fullWidth
-              />
-            </div>
-          </div>
-
-          {/* 파일 1 */}
-          <div className={adcommons.adcommons__sub2_container_box}>
-            <div className={adcommons.adcommons__sub2_title}>이미지</div>
-            <div className={adcommons.adcommons__box}>
-              <div className={adcommons.adcommons__filebox}>
-                {/* 이미지 미리보기 영역 */}
-                <div className={adcommons.adcommons__imgbox}>
-                  {filePreview1 && (
-                    <img src={filePreview1} alt="파일 미리보기" className={adcommons.adcommons__imagePreview} />
-                  )}
+                <div className={adcommons.adcommons__main_container_box}>
+                    <div className={adcommons.adcommons__main_title}>약국 이름</div>
+                    <div className={adcommons.adcommons__box}>
+                        <TextField
+                            fullWidth
+                            label="약국 이름"
+                            id="phar_name"
+                            name="phar_name"
+                            value={pharmacy.phar_name || ''}  // 값이 없으면 빈 문자열로 처리
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
-                <input
-                  className={adcommons.adcommons__uploadName}
-                  value={fileName1}
-                  placeholder=""
-                  readOnly
-                />
-                <label htmlFor="file1">파일찾기</label>
-                <input
-                  type="file"
-                  id="file1"
-                  name="file_name1"
-                  onChange={(e) => handleFileChange(e, setFileName1, setFilePreview1)} // 파일1 상태 업데이트 및 미리보기
-                />
-              </div>
+
+                <div className={adcommons.adcommons__sub1_container_box}>
+                    <div className={adcommons.adcommons__sub1_title}>주소</div>
+                    <div className={adcommons.adcommons__box}>
+                        <TextField
+                            fullWidth
+                            label="주소"
+                            id="phar_address"
+                            name="phar_address"
+                            value={pharmacy.phar_address || ''}  // 값이 없으면 빈 문자열로 처리
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
+
+                <div className={adcommons.adcommons__sub1_content_textarea}>
+                    <div className={adcommons.adcommons__sub1_content}>지도</div>
+                    <Map
+                        center={state.center}
+                        isPanto={state.isPanto}
+                        style={{ width: "100%", height: "450px" }}
+                        level={3}
+                    >
+                        <MapMarker position={state.center} />
+                    </Map>
+                </div>
+
+                <div className={adcommons.adcommons__button_box}>
+
+                    <Button
+                        variant="outlined"
+                        size="medium"
+                        sx={{
+                            marginLeft: "15px",
+                            backgroundColor: "white",
+                            color: "#9e9e9e",
+                            border: "1px solid #9e9e9e",
+                            "&:hover": {
+                                backgroundColor: "secondary.main",
+                                color: "white",
+                                border: "1px solid #9e9e9e",
+                            },
+
+                        }}
+                        onClick={handleSave}
+                    >
+                        수정
+                    </Button>
+
+                    <Button
+                        variant="outlined"
+                        size="medium"
+                        sx={{
+                            marginLeft: "15px",
+                            backgroundColor: "white",
+                            color: "#9e9e9e",
+                            border: "1px solid #9e9e9e",
+                            "&:hover": {
+                                backgroundColor: "secondary.main",
+                                color: "white",
+                                border: "1px solid #9e9e9e",
+                            },
+                        }}
+                        onClick={handleClickCancel}
+                    >
+                        취소
+                    </Button>
+                </div>
             </div>
-          </div>
-
-          <div className={adcommons.adcommons__button_box}>
-            <Button
-              variant="outlined"  // 버튼의 기본 스타일을 outlined로 설정 (배경이 투명)
-              size="medium"
-              sx={{
-                backgroundColor: 'white',  // 배경을 흰색으로 설정
-                color: '#9e9e9e',  // 글자 색상 #9e9e9e
-                border: '1px solid #9e9e9e',  // 보더 색상 #9e9e9e
-                '&:hover': {
-                  backgroundColor: 'secondary.main',  // hover 시 배경 색상 (secondary 색상)
-                  color: 'white',  // hover 시 글자 색상 흰색
-                  border: '1px solid #9e9e9e',  // hover 시 보더 색상
-
-                }
-              }}
-            >
-              저장
-            </Button>
-
-            <Button
-              variant="outlined"  // 버튼의 기본 스타일을 outlined로 설정 (배경이 투명)
-              size="medium"
-              sx={{
-                marginLeft: "15px",
-                backgroundColor: 'white',  // 배경을 흰색으로 설정
-                color: '#9e9e9e',  // 글자 색상 #9e9e9e
-                border: '1px solid #9e9e9e',  // 보더 색상 #9e9e9e
-                '&:hover': {
-                  backgroundColor: 'secondary.main',  // hover 시 배경 색상 (secondary 색상)
-                  color: 'white',  // hover 시 글자 색상 흰색
-                  border: '1px solid #9e9e9e',  // hover 시 보더 색상
-
-                }
-              }}
-            >
-              삭제
-            </Button>
-
-            <Button
-              variant="outlined"  // 버튼의 기본 스타일을 outlined로 설정 (배경이 투명)
-              size="medium"
-              sx={{
-                marginLeft: "15px",
-                backgroundColor: 'white',  // 배경을 흰색으로 설정
-                color: '#9e9e9e',  // 글자 색상 #9e9e9e
-                border: '1px solid #9e9e9e',  // 보더 색상 #9e9e9e
-                '&:hover': {
-                  backgroundColor: 'secondary.main',  // hover 시 배경 색상 (secondary 색상)
-                  color: 'white',  // hover 시 글자 색상 흰색
-                  border: '1px solid #9e9e9e',  // hover 시 보더 색상
-
-                }
-              }}
-            >
-              취소
-            </Button>
-          </div>
         </div>
-      </div>
-    </>
-  );
-}
+    );
 
-export default Page;
+}
+export default DetailPage;

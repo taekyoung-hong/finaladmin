@@ -14,8 +14,8 @@ const KakaoMapComponent = () => {
     });
 
     const [formData, setFormData] = useState({
-        phar_name: "", // 약국 이름
-        phar_address: "", // 주소
+        box_name: "", // 약국 이름
+        box_address: "", // 주소
     });
 
     const router = useRouter();
@@ -49,7 +49,7 @@ const KakaoMapComponent = () => {
 
     // 주소 검색 후 지도 이동
     const SearchMap = () => {
-        if (!formData.phar_address) {
+        if (!formData.box_address) {
             alert("주소를 입력해주세요.");
             return;
         }
@@ -68,28 +68,28 @@ const KakaoMapComponent = () => {
             }
         };
 
-        ps.keywordSearch(formData.phar_address, placesSearchCB); // 키워드로 장소 검색
+        ps.keywordSearch(formData.box_address, placesSearchCB); // 키워드로 장소 검색
     };
 
     // 저장 처리
     const handleSubmit = async () => {
-        if (!formData.phar_name || !formData.phar_address) {
+        if (!formData.box_name || !formData.box_address) {
             alert("약국 이름과 주소를 입력해주세요.");
             return;
         }
 
         try {
             const data = {
-                phar_name: formData.phar_name,
-                phar_address: formData.phar_address,
-                phar_long: state.center.lng,
-                phar_lat: state.center.lat,
+                box_name: formData.box_name,
+                box_address: formData.box_address,
+                box_long: state.center.lng,
+                box_lat: state.center.lat,
             };
 
             console.log("Submitting data:", data);  // 데이터 콘솔에 출력
 
             // axios POST 요청
-            axios.post("http://localhost:8080/api/phar_info/write", data, {
+            axios.post("http://localhost:8080/api/box_info/write", data, {
                 headers: {
                     "Content-Type": "application/json",  // 요청 헤더에 JSON 형식 명시
                 },
@@ -101,8 +101,8 @@ const KakaoMapComponent = () => {
                         alert("저장되었습니다.");
                         // 상태 초기화
                         setFormData({
-                            phar_name: "",
-                            phar_address: "",
+                            box_name: "",
+                            box_address: "",
                         });
                         setState({
                             center: { lat: 37.49676871972202, lng: 127.02474726969814 },
@@ -116,7 +116,7 @@ const KakaoMapComponent = () => {
                 });
 
         } catch (error) {
-            console.error("Error saving pharmacy:", error);
+            console.error("Error saving boxmacy:", error);
             alert("저장 중 오류가 발생했습니다.");
         }
     };
@@ -137,9 +137,9 @@ const KakaoMapComponent = () => {
                             <TextField
                                 fullWidth
                                 label="약국 이름"
-                                id="phar_name"
-                                name="phar_name" // `name` 추가
-                                value={formData.phar_name}
+                                id="box_name"
+                                name="box_name" // `name` 추가
+                                value={formData.box_name}
                                 onChange={handleChange}
                             />
                         </div>
@@ -152,9 +152,9 @@ const KakaoMapComponent = () => {
                             <TextField
                                 fullWidth
                                 label="주소를 입력해주세요"
-                                id="phar_address"
-                                name="phar_address" // `name` 추가
-                                value={formData.phar_address}
+                                id="box_address"
+                                name="box_address" // `name` 추가
+                                value={formData.box_address}
                                 onChange={handleChange}
                                 InputProps={{
                                     endAdornment: (

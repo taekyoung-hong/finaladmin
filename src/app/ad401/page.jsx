@@ -1,38 +1,36 @@
-import React from 'react';
+"use client"
+import React, { useState } from 'react';
 import styles from '../styles/ad401.module.css'
 import adcommons from "../styles/adcommons.module.css";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import axios from 'axios';
 
 function Page(props) {
 
     const [formData, setFormData] = useState({
-        ad401title: "", // 약국 이름
-        ad401content: "", // 주소
+        ad401title: "",
+        ad401content: "",
         ad401_subtitle1: "",
         ad401_subcontent1: "",
         ad401_subtitle2: "",
-        ad401_subtitle2: "",
-        ad401_subcontent3: "",
+        ad401_subcontent2: "",
+        ad401_subtitle3: "",
         ad401_subcontent3: ""
     });
 
     const handleSubmit = async () => {
-        if (!formData.phar_name || !formData.phar_address) {
-            alert("정보를 입력해주세요.");
-            return;
-        }
 
         try {
             const data = {
                 ad401title: formData.ad401title,
                 ad401content: formData.ad401content,
-                ad401_subtitle1: "",
-                ad401_subcontent1: "",
-                ad401_subtitle2: "",
-                ad401_subtitle2: "",
-                ad401_subcontent3: "",
-                ad401_subcontent3: ""
+                ad401_subtitle1: formData.ad401_subtitle1,
+                ad401_subcontent1: formData.ad401_subcontent1,
+                ad401_subtitle2: formData.ad401_subtitle2,
+                ad401_subcontent2: formData.ad401_subcontent2,
+                ad401_subtitle3: formData.ad401_subtitle3,
+                ad401_subcontent3: formData.ad401_subcontent3
             };
 
             console.log("Submitting data:", data);  // 데이터 콘솔에 출력
@@ -50,13 +48,16 @@ function Page(props) {
                         alert("저장되었습니다.");
                         // 상태 초기화
                         setFormData({
-                            phar_name: "",
-                            phar_address: "",
+                            ad401title: "", // 약국 이름
+                            ad401content: "", // 주소
+                            ad401_subtitle1: "",
+                            ad401_subcontent1: "",
+                            ad401_subtitle2: "",
+                            ad401_subcontent2: "",
+                            ad401_subtitle3: "",
+                            ad401_subcontent3: ""
                         });
-                        setState({
-                            center: { lat: 37.49676871972202, lng: 127.02474726969814 },
-                            isPanto: true,
-                        });
+
                     }
                 })
                 .catch(error => {
@@ -70,7 +71,7 @@ function Page(props) {
         }
     };
     const handleClickCancel = () => {
-        router.push("/ad601"); // 취소 버튼 동작
+        router.push("/ad401"); // 취소 버튼 동작
     };
 
 
@@ -84,7 +85,8 @@ function Page(props) {
                     <div className={adcommons.adcommons__main_container_box}>
                         <div className={adcommons.adcommons__main_title}>메인 타이틀</div>
                         <div className={adcommons.adcommons__box}>
-                            <TextField fullWidth label="메인 타이틀" id="fullWidth" />
+                            <TextField fullWidth label="메인 타이틀" id="fullWidth"
+                                onChange={(e) => setFormData({ ...formData, ad401title: e.target.value })} />
                         </div>
                     </div>
 
@@ -98,6 +100,7 @@ function Page(props) {
                                 maxRows={4}
                                 rows={4}
                                 fullWidth
+                                onChange={(e) => setFormData({ ...formData, ad401content: e.target.value })}
 
                             />
                         </div>
@@ -107,7 +110,12 @@ function Page(props) {
                     <div className={adcommons.adcommons__sub1_container_box}>
                         <div className={adcommons.adcommons__sub1_title}>서브1 타이틀</div>
                         <div className={adcommons.adcommons__box}>
-                            <TextField fullWidth label="서브1 타이틀" id="fullWidth" />
+                            <TextField fullWidth label="서브1 타이틀" id="fullWidth" 
+                            onChange={(e) => setFormData({ ...formData, ad401_subtitle1: e.target.value })}
+                            />
+
+
+
                         </div>
                     </div>
 
@@ -121,7 +129,7 @@ function Page(props) {
                                 maxRows={4}
                                 rows={4}
                                 fullWidth
-
+                                onChange={(e) => setFormData({ ...formData, ad401_subcontent1: e.target.value })}
                             />
                         </div>
                     </div>
@@ -130,6 +138,8 @@ function Page(props) {
                         <div className={adcommons.adcommons__sub2_title}>서브2 타이틀</div>
                         <div className={adcommons.adcommons__box}>
                             <TextField fullWidth label="서브2 타이틀" id="fullWidth"
+                                onChange={(e) => setFormData({ ...formData, ad401_subtitle2: e.target.value })}
+                            
                             />
                         </div>
                     </div>
@@ -144,7 +154,7 @@ function Page(props) {
                                 maxRows={4}
                                 rows={4}
                                 fullWidth
-
+                                onChange={(e) => setFormData({ ...formData, ad401_subcontent2: e.target.value })}
                             />
                         </div>
                     </div>
@@ -153,7 +163,8 @@ function Page(props) {
                         <div className={adcommons.adcommons__sub3_title}>서브3 타이틀</div>
                         <div className={adcommons.adcommons__box}>
                             <TextField fullWidth label="서브3 타이틀" id="fullWidth"
-                            />
+                             onChange={(e) => setFormData({ ...formData, ad401_subtitle3: e.target.value })}
+                           />
                         </div>
 
                     </div>
@@ -168,7 +179,7 @@ function Page(props) {
                                 maxRows={4}
                                 rows={4}
                                 fullWidth
-
+                                onChange={(e) => setFormData({ ...formData, ad401_subcontent2: e.target.value })}
                             />
                         </div>
                     </div>
@@ -187,6 +198,7 @@ function Page(props) {
 
                                 }
                             }}
+                            onClick={handleSubmit}
                         >
                             저장
                         </Button>
@@ -207,6 +219,7 @@ function Page(props) {
                                 }
 
                             }}
+                            onClick={handleClickCancel}
                         >
                             취소
                         </Button>

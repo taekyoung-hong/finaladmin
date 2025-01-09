@@ -4,6 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import styles from './styles/page.module.css';
 import axios from 'axios';
+import { Badge, IconButton } from '@mui/material';
 
 export default function HomePage() {
     const [setqna, setSetQna] = React.useState([]); // qna 불러오기 
@@ -53,6 +54,22 @@ export default function HomePage() {
     // 확인시 알림 숫자 0
     const handleNotificationClick = () => {
         setUnreadCount(0);  // 알림 숫자 초기화
+    };
+
+
+    React.useEffect(() => {
+        // 서버에서 게시글 수를 가져오기
+        axios.get("http://localhost:8080/api/notifications/count")
+            .then(response => {
+                setNotificationCount(response.data.count); // 서버 응답에 맞춰 카운트 업데이트
+            })
+            .catch(error => {
+                console.error("Failed to fetch notification count:", error);
+            });
+    }, []);  // 컴포넌트 마운트 시 한 번만 실행
+
+    const handleCheckNotifications = () => {
+        setNotificationCount(0);
     };
 
 
@@ -106,6 +123,7 @@ export default function HomePage() {
 
                             }}
                             getRowId={(row) => row.user_idx}  // user_idx를 고유 id로 사용
+                            scrollbarSize={0}
                         />
                     </Paper>
                 </div>
@@ -162,6 +180,7 @@ export default function HomePage() {
                                 }
                             }}
                             getRowId={(row) => row.qna_title}  // user_idx를 고유 id로 사용
+                            scrollbarSize={0}
                         />
                     </Paper>
                 </div>
@@ -177,9 +196,16 @@ export default function HomePage() {
                 </div>
 
                 <div className={styles.ad101__notificationicon} onClick={handleNotificationClick}>
-                    <span className={`${styles.ad101__notificationicon} material-symbols-outlined`}>
-                        notifications
-                    </span>
+
+                    {/* <IconButton onClick={handleCheckNotifications}>
+                        <Badge
+                            badgeContent={notificationCount > 9 ? "9+" : notificationCount}
+                            color="secondary"
+                        >
+                            <NotificationsIcon />
+                        </Badge>
+                    </IconButton> */}
+
                     <div className={styles.ad101__notificationbadge2}>5</div>
                 </div>
 
