@@ -1,0 +1,9 @@
+.admin-footer {
+    width: 100%;
+    text-align: center;
+    height: 60px;
+    background-color: #7b7b7b;
+    font-size: 14px;
+    color: #fff;
+    line-height: 60px;
+}

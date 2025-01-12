@@ -1,6 +1,7 @@
 import "./globals.css";
 import AdminHeader from './components/AdminHeader';
-import Link from "next/link";
+import AdminFooter from './components/AdminFooter';
+
 
 
 export default function RootLayout({ children }) {
@@ -10,11 +11,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <title>YAKJIGI-관리자</title>
-     
-        <script 
-        type="text/javascript"
-         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=933487853729474a473e38bfd47ce1f5&libraries=services"></script>
-       
+
+        <script
+          type="text/javascript"
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=933487853729474a473e38bfd47ce1f5&libraries=services"></script>
+
         <link
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
@@ -32,11 +33,8 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <AdminHeader />
-
         {children}
-
-
-
+        <AdminFooter />
       </body>
     </html>
   );

@@ -1,10 +1,9 @@
 "use client"
-import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
-import styles from './styles/page.module.css';
+import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
-import { Badge, IconButton } from '@mui/material';
+import * as React from 'react';
+import styles from './styles/page.module.css';
 
 export default function HomePage() {
     const [setqna, setSetQna] = React.useState([]); // qna 불러오기 
@@ -186,36 +185,7 @@ export default function HomePage() {
                 </div>
             </div>
 
-            {/* 알림 아이콘 */}
-            <div className={styles.ad101__notification}>
-                <div className={styles.ad101__notificationicon} onClick={handleNotificationClick}>
-                    <span className={`${styles.ad101__notificationicon} material-symbols-outlined`}>
-                        notifications
-                    </span>
-                    <div className={styles.ad101__notificationbadge1}>1</div>
-                </div>
-
-                <div className={styles.ad101__notificationicon} onClick={handleNotificationClick}>
-
-                    {/* <IconButton onClick={handleCheckNotifications}>
-                        <Badge
-                            badgeContent={notificationCount > 9 ? "9+" : notificationCount}
-                            color="secondary"
-                        >
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton> */}
-
-                    <div className={styles.ad101__notificationbadge2}>5</div>
-                </div>
-
-                <div className={styles.ad101__notificationicon} onClick={handleNotificationClick}>
-                    <span className={`${styles.ad101__notificationicon} material-symbols-outlined`}>
-                        notifications
-                    </span>
-                    <div className={styles.ad101__notificationbadge3}>9+</div>
-                </div>
-            </div>
+  
         </div>
     );
 }
